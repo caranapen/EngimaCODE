@@ -1,1 +1,64 @@
-/* CSS declarations go here */
+/*-- Layout ----------------------------------------------------------*/
+body {
+    color: black;
+    font: normal "Arial";
+    font-size:1em;
+    line-height: 1.4;
+}
+
+#supercontainer {
+    border: 1px solid #C60;
+    width: 95%;
+    max-width: 9000px;
+    margin: 0 auto;
+}
+
+
+#cabecera {
+    border: 1px solid black;
+}
+
+#banner {
+    border: 1px solid black;
+}
+
+#menu_principal {
+    border: 1px solid black;
+}
+
+#menu {
+    border: 1px solid black;
+Algo para los minimenus
+}
+
+#container_lateral1 {
+    border: 1px solid black;
+}
+
+#container_lateral2 {
+    border: 1px solid black;
+}
+
+#login {
+    border: 1px solid black;
+}
+
+#introduccion {
+    border: 1px solid black;
+}
+
+#principal {
+    border: 1px solid black;
+}
+
+#menu_canvas {
+    border: 1px solid black;
+}
+
+#contenido {
+    border: 1px solid black;
+}
+
+#pie{
+    border: 1px solid black;
+}

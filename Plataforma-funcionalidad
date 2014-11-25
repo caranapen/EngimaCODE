@@ -1,0 +1,60 @@
+Menu principal:
+    Perfil:
+    Estadisticas:
+            Puntuacion (Puntos por partida ganada, empatada y perdida (puntos tb por haberla jugado))
+            Puntuacion media que obtiene en las partidas
+            Partidas ganadas
+            Partidas empatadas
+            Partidas perdidas
+            Estadisticas varias:
+                Es un leaver
+                AFK
+                Promedio de tiempo por jugada
+Chat:
+    Chat general:
+        Único con chat con varias pestañas dependiendo del tipo de chat:
+            General
+            Partida actual
+            Privado
+            Alianza
+            (También funciona si estás en cualquier chat y dependiendo
+	     de la etiqueta que pongas)
+
+
+Partidas:
+	* Un jugador registrado puede crear y acceder a partidas.
+
+	* Deberá haber un botón "nueva partida" para crear partidas.
+
+	* (abrá que preguntar las variantes de partidas que se van 
+ 	   a implementar)
+
+	* Al darle click, mostrará en pantalla un box donde mostrará
+	  las variantes del juego (pedir info al grupo que implemente esto)
+   	  y un botón donde se pueda +crear+ la partida o +cancelar+ si no 
+	  se desea crear esa partida.
+
+	* Un espacio en donde se muestren todas las partidas que se
+	  están jugando en ese instante (y a las cuales se pueda acceder).
+
+	* Un espacio donde se pueda mirar que jugadores están conectados
+	  en ese momento, y de este modo poder "invitar" dando click sobre
+	  un botón que les acompañe a la partida creada por el anfitrión.
+
+	* Cuando se invite a un jugador, aparecerá en la pantalla la invitación
+	  a la partida, con el nombre del jugador anfitrión, y dos botones, 
+	  uno para +aceptar+ la invitación y unirse a la partida, y otro para
+   	  +ignorar+ la invitación.
+
+
+Ranking:
+	* Mejores jugadores (durante todo el año).	
+	* Mejores jugadores del Mes
+	En ambos se mostrará la información del jugador: Nick - puntos totales
+
+
+
+	
+
+
+

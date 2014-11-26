@@ -1,10 +1,13 @@
-
-<head> 
-    <title>EnigmaCode-Plataphorma</title>
+<!DOCTYPE html>
+<html lang="en" manifest="cache.manifest">
+<head>
+    <link rel="stylesheet" type="text/css" href="EnigmaCode.css">
+    <script src="EnigmaCode.js"></script>
+    <meta charset="utf-8"/>
+    <tittle>EnigmaCode-Plataforma</tittle>
 </head>
 
 <body>
-<!--Separo el body y el contenedor principal. Todo lo demás también son containers independientes, aunque no lleven el nombre. No creo que me explique xDD)-->
 
 <div id="supercontainer">
     
@@ -12,7 +15,9 @@
         <div id="banner">
             <h1>Aqui va tu banner mr. Cristian!</h1>
         </div>
-        <!--Podrian ir otras cosas como un buscador o algo asi-->
+        <div id="login">
+            <h1>Login</h1>
+        </div>
     </div>
     
     <div id="menu_principal">
@@ -32,32 +37,29 @@
     </div>
     
     <div id="container_lateral2">
-        <div id="login">
-            <h1>HI! soy un login</h1>
-        </div>
         <div id="Introduccion">
-            <h1>HI! soy un video de introduccion al juego</h1>
+            <h1>HI! soy un video de introduccion al juego </h1>
         </div>
     </div>
     
     <div id="principal">
-
         <div id="menu_canvas">
-            <h1>Aqui pesta&ntilde;itas para poder cambiar de juego</h1>
+            <h1>Aqui pestañitas para poder cambiar de juego</h1>
         </div>
-
         <div id="contenido">
-            <template name="Carcassone1.0">
-                <canvas id='game' width='320' height='480'></canvas>
-            </template> 
-
+            {{> Carcassone1.0}}
         </div>
     </div>
     
     <div id="pie">
         <h1>Aqui ponemos un pie de pagina, que ya se nos ocurrira</h1>
     </div>    
-
-</div>
-
 </body>
+
+<template name="Carcassone1.0">
+    <canvas id='game' width='320' height='480'></canvas> 
+    <!Esto lo cambiaremos en el js!>
+    Tu navegador no soporta canvas de HTML5
+</template> 
+
+</html>

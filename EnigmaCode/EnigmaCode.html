@@ -8,14 +8,15 @@
 </head>
 
 <body>
-<div id="supercontainer">
+<div id="globalbox">
     
     <div id="cabecera">
         <div id="banner">
             <h1>Aqui va tu banner mr. Cristian!</h1>
         </div>
-        <div id="login">
-            <h1>Login</h1>
+        <div id="loginbox">
+            {{> login}}
+            {{> register}}
         </div>
     </div>
     
@@ -55,6 +56,17 @@
     </div>   
 </div>
 </body>
+
+<template name="login">
+    <button>Sign_up</button>
+    <p>Login funciona {{counter1}} vez.</p>
+</template>
+
+<template name="register">
+    <button>Register</button>
+    <p>Register funciona {{counter2}} vez.</p>
+</template>
+
 
 <template name="Carcassone">
     <canvas id='game' width='320' height='480'></canvas> 

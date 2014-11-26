@@ -9,7 +9,7 @@ body {
     height: 70em;
 }
 
-#supercontainer {
+#globalbox {
     border: 1px solid red;
     margin: 1em;
     text-align: center;
@@ -33,7 +33,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
 }
 
-#login {
+#loginbox {
     border: 1px solid yellow;
     float: right;
     width: 20%;

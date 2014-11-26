@@ -14,8 +14,8 @@ body {
     margin: 1em;
     text-align: center;
     height: 95%;
-    Ojito con esta height, esta un poco parcheada, no deberia estar asi
-y se deberia haber ajustado solita..pero bueno. Igual es por el margin.
+  /*  Ojito con esta height, esta un poco parcheada, no deberia estar asi
+y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
 
 
@@ -111,8 +111,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.
     border: 2px solid green;
     margin: 1em;
     height: 85%;
-    Ojito con esta height, esta un poco parcheada, no deberia estar asi
-y se deberia haber ajustado solita..pero bueno. Igual es por el margin.
+   /* <!Ojito con esta height, esta un poco parcheada, no deberia estar asi
+y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
 #canvas {

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" manifest="cache.manifest">
+
+
 <head>
     <link rel="stylesheet" type="text/css" href="EnigmaCode.css">
     <script src="EnigmaCode.js"></script>
@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
 <div id="supercontainer">
     
     <div id="cabecera">
@@ -47,19 +46,17 @@
             <h1>Aqui pestañitas para poder cambiar de juego</h1>
         </div>
         <div id="contenido">
-            {{> Carcassone1.0}}
+            {{> Carcassone}}
         </div>
     </div>
     
     <div id="pie">
         <h1>Aqui ponemos un pie de pagina, que ya se nos ocurrira</h1>
-    </div>    
+    </div>   
+</div>
 </body>
 
-<template name="Carcassone1.0">
+<template name="Carcassone">
     <canvas id='game' width='320' height='480'></canvas> 
-    <!Esto lo cambiaremos en el js!>
-    Tu navegador no soporta canvas de HTML5
 </template> 
 
-</html>

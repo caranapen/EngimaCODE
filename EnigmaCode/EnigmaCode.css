@@ -1,13 +1,16 @@
 
-body {
+
+body {    
+    background-color: #1A1E21;
     border: 3px solid blue;
     margin: 0 auto;
-    color: black;
+    color: white;
     font: normal "Arial";
     font-size: 0.8em;
     line-height: 1.4;
     height: 70em;
 }
+
 
 #globalbox {
     border: 1px solid red;
@@ -20,6 +23,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 
 
 #cabecera {
+    background: #CFD5DE;
     border: 1px solid green;
     margin: 1em;
     height: 10em;
@@ -30,7 +34,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: left;
     width: 74%;
     height: 8em;
-    margin: 1em;
+    margin: 1em;    
 }
 
 #loginbox {
@@ -38,7 +42,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: right;
     width: 20%;
     height: 8em;
-    margin: 1em;
+    margin: 2em;
     
 }
 
@@ -48,13 +52,15 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     height: 4em;
 }
 
-#menu {
+#menu {    
     border: 1px solid yellow;
     margin: 1em;
     float: left; 
 }
 
 #menu_principal ul#menu li {
+
+    text-align: center;
     border: 1px solid blue;
     margin: 5px;
     padding: 1px;
@@ -79,25 +85,26 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 #container_lateral2 {
     border: 1px solid orange;
     width: 15%;
-    margin: 1em;
+    margin: 1.9em;
     float: right;
     height: 25em;
 }
 
-#introduccion {
+#introduccion {    
+
     border: 1px solid purple;
     margin: 1em;
 }
 
 #principal {
-    border: 1px solid orange;
+    border: 1px solid #707781;
     width: 60%;
     height: 40em;
     margin: 1em;
     float: left;
 }
 
-#menu_canvas {
+#menu_canvas {    
     border: 1px solid purple;
     margin: 1em;
     height: 3em;
@@ -108,19 +115,21 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
 
 #contenido {
-    border: 2px solid green;
+
+    border: 2px solid cyan;
     margin: 1em;
     height: 85%;
    /* <!Ojito con esta height, esta un poco parcheada, no deberia estar asi
 y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
-#canvas {
+#canvas {        
     border: 2px solid red;
     margin: 0.3em;
 }
 
 #pie {
+    
     border: 1px solid green;
     margin: 1em;
     height: 3em;
@@ -133,3 +142,19 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     clear: both;
 }
 
+#loginbox, #container_lateral1, #container_lateral2, #chat,
+#menu_canvas, #contenido, #pie {
+
+    background: #384047;
+}
+
+
+#globalbox, #banner, #loginbox, #menu,
+#container_lateral1, #container_lateral2,
+#menu_canvas, #contenido,#pie{
+
+    -webkit-box-shadow: 10px 8px 20px 8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 8px 20px 8px rgba(0,0,0,0.75);
+    box-shadow: 10px 8px 20px 8px rgba(0,0,0,0.75);
+
+}

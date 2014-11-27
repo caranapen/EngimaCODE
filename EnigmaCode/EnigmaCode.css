@@ -8,6 +8,7 @@ body {
     font-size: 0.8em;
     line-height: 1.4;
     height: 70em;
+    z-index: 100;
 }
 
 
@@ -16,6 +17,7 @@ body {
     margin: 1em;
     text-align: center;
     height: 95%;
+    z-index: 200;
   /*  Ojito con esta height, esta un poco parcheada, no deberia estar asi
 y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
@@ -26,6 +28,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     border: 1px solid green;
     margin: 1em;
     height: 10em;
+    z-index: 300;
 }
 
 #banner {
@@ -34,7 +37,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: left;
     width: 74%;
     height: 8em;
-    margin: 1em;    
+    margin: 1em;   
+    z-index: 400; 
 }
 
 #userbox {
@@ -43,6 +47,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     width: 15%;
     height: 8em;
     margin: 1em;
+    z-index: 300;
 }
 
 #loginbox {
@@ -53,6 +58,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     padding: 0.4em;
     margin: 0.8em;
     clear: both;
+    z-index: 400;
 }
 
 #registerbox {
@@ -63,18 +69,21 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     padding: 0.4em;
     margin: 0.8em;
     clear: both;
+    z-index: 400;
 }
 
 #menu_principal {
     border: 1px solid green;
     margin: 1em;
     height: 4em;
+    z-index: 300;
 }
 
 #menu {    
     border: 1px solid yellow;
     margin: 1em;
     float: left; 
+    z-index: 400;
 }
 
 #menu_principal ul#menu li {
@@ -85,6 +94,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     padding: 1px;
     display: inline;
     float: left;
+    z-index: 500;
 }
 
 #container_lateral1 {
@@ -93,6 +103,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: left;
     height: 25em;
+    z-index: 300;
 }
 
 #chat {
@@ -100,6 +111,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: left;
     font-size: 0.6em;
+    z-index: 400;
 }
 
 #container_lateral2 {
@@ -108,6 +120,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: right;
     height: 25em;
+    z-index: 300;
 }
 
 #introduccion {    
@@ -115,6 +128,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: left;
     font-size: 0.6em;
+    z-index: 400;
 }
 
 #principal {
@@ -123,6 +137,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     height: 40em;
     margin: 1em;
     float: left;
+    z-index: 300;
 }
 
 #menu_canvas {    
@@ -133,27 +148,32 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     vertical-align: middle;
     line-height: 3px;
     display: block;
+    z-index: 400;
 }
 
 #contenido {
     border: 2px solid cyan;
     margin: 1em;
     height: 85%;
+    z-index: 400;
    /* <!Ojito con esta height, esta un poco parcheada, no deberia estar asi
 y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
-#logged_user {
+#logged_users {
     border: 2px solid red;
     margin: 0.3em;
     float: left;
     height: 20em;
     width: 14em;
+    overflow: scroll;
+    z-index: 500;
 }
 
 #canvas {        
     border: 2px solid red;
     margin: 0.3em;
+    
 }
 
 #pie {
@@ -167,6 +187,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     line-height: 3px;
     display: block;
     clear: both;
+    z-index: 300;
 }
 
 #loginbox, #registerbox, #container_lateral1, #container_lateral2, #chat,

@@ -51,10 +51,8 @@
             <h1>Aqui pestañitas para poder cambiar de juego</h1>
         </div>
         <div id="contenido">
-            <div id="logged_user">
-                <form class="new-task">
-                    <input type="text" name="text" placeholder="Type to add new tasks" />
-                </form>
+            <div id="logged_users">
+                {{> logged_users}}
             </div>
             {{> Carcassone}}
         </div>
@@ -66,6 +64,11 @@
 </div>
 </body>
 
+<template name="logged_users">
+    <h1>Usuarios en línea</h1>
+    /*En proceso*/
+    <span class="text">{{currentUser}}</span>
+</template>
 
 <template name="Carcassone">
     <canvas id='game' width='320' height='480'></canvas> 

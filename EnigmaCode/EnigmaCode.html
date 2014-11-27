@@ -18,9 +18,7 @@
             <div id="loginbox">
                 {{> loginButtons}}
             </div>
-            <!-- div id="registerbox">
-                {{ loginButtons}}
-            </div> -->
+
         </div>
     </div>
     
@@ -53,13 +51,11 @@
             <h1>Aqui pestañitas para poder cambiar de juego</h1>
         </div>
         <div id="contenido">
-<<<<<<< HEAD
-            <div id="logged_users">
-                {{> logged_users}}
-=======
+
+            <div id="logged_users"> </div>
+                {{> userlist}}
             <div id="logged_user">
-  
->>>>>>> 800064d94053cb725a9391c539c6a7df68193353
+
             </div>
             {{> Carcassone}}
         </div>
@@ -71,10 +67,11 @@
 </div>
 </body>
 
-<template name="logged_users">
+<template name="userlist">
     <h1>Usuarios en línea</h1>
-    /*En proceso*/
-    <span class="text">{{currentUser}}</span>
+			{{# each users}}
+				{{username}}
+			{{/each}}
 </template>
 
 <template name="Carcassone">

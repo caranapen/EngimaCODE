@@ -76,11 +76,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     border: 1px solid green;
     margin: 1em;
     height: 4em;
-<<<<<<< HEAD
     z-index: 300;
-=======
-
->>>>>>> 800064d94053cb725a9391c539c6a7df68193353
 }
 
 #menu {    
@@ -107,11 +103,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: left;
     height: 25em;
-<<<<<<< HEAD
     z-index: 300;
-=======
 
->>>>>>> 800064d94053cb725a9391c539c6a7df68193353
 }
 
 #chat {
@@ -145,11 +138,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     height: 40em;
     margin: 1em;
     float: left;
-<<<<<<< HEAD
     z-index: 300;
-=======
 
->>>>>>> 800064d94053cb725a9391c539c6a7df68193353
 }
 
 #menu_canvas {    

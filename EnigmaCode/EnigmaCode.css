@@ -1,6 +1,5 @@
+body {
 
-
-body {    
     background-color: #1A1E21;
     border: 3px solid blue;
     margin: 0 auto;
@@ -23,13 +22,14 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 
 
 #cabecera {
-    background: #CFD5DE;
+    background: url(imagescarcassone/background.gif) no-repeat;
     border: 1px solid green;
     margin: 1em;
     height: 10em;
 }
 
 #banner {
+    background-image: url(imagescarcassone/castle1.jpg) no-repeat;
     border: 1px solid yellow;
     float: left;
     width: 74%;
@@ -37,13 +37,32 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;    
 }
 
-#loginbox {
+#userbox {
     border: 1px solid yellow;
     float: right;
-    width: 20%;
+    width: 15%;
     height: 8em;
-    margin: 2em;
-    
+    margin: 1em;
+}
+
+#loginbox {
+    border: 1px solid yellow;
+    float: left;
+    width: auto;
+    height: auto;
+    padding: 0.4em;
+    margin: 0.8em;
+    clear: both;
+}
+
+#registerbox {
+    border: 1px solid yellow;
+    float: left;
+    width: auto;
+    height: auto;
+    padding: 0.4em;
+    margin: 0.8em;
+    clear: both;
 }
 
 #menu_principal {
@@ -80,25 +99,27 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     border: 1px solid purple;
     margin: 1em;
     float: left;
+    font-size: 0.6em;
 }
 
 #container_lateral2 {
     border: 1px solid orange;
     width: 15%;
-    margin: 1.9em;
+    margin: 1em;
     float: right;
     height: 25em;
 }
 
 #introduccion {    
-
     border: 1px solid purple;
     margin: 1em;
+    float: left;
+    font-size: 0.6em;
 }
 
 #principal {
     border: 1px solid #707781;
-    width: 60%;
+    width: 58%;
     height: 40em;
     margin: 1em;
     float: left;
@@ -115,12 +136,19 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
 
 #contenido {
-
     border: 2px solid cyan;
     margin: 1em;
     height: 85%;
    /* <!Ojito con esta height, esta un poco parcheada, no deberia estar asi
 y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
+}
+
+#logged_user {
+    border: 2px solid red;
+    margin: 0.3em;
+    float: left;
+    height: 20em;
+    width: 14em;
 }
 
 #canvas {        
@@ -129,7 +157,6 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
 #pie {
-    
     border: 1px solid green;
     margin: 1em;
     height: 3em;
@@ -142,14 +169,14 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     clear: both;
 }
 
-#loginbox, #container_lateral1, #container_lateral2, #chat,
+#loginbox, #registerbox, #container_lateral1, #container_lateral2, #chat,
 #menu_canvas, #contenido, #pie {
 
     background: #384047;
 }
 
 
-#globalbox, #banner, #loginbox, #menu,
+#globalbox, #banner, #loginbox, #registerbox, #menu,
 #container_lateral1, #container_lateral2,
 #menu_canvas, #contenido,#pie{
 

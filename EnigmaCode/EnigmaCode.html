@@ -14,8 +14,13 @@
         <div id="banner">
             <h1>Aqui va tu banner mr. Cristian!</h1>
         </div>
-        <div id="loginbox">
-            {{> loginButtons}}
+        <div id="userbox">
+            <div id="loginbox">
+                {{> loginButtons}}
+            </div>
+            <!-- div id="registerbox">
+                {{ loginButtons}}
+            </div> -->
         </div>
     </div>
     
@@ -36,7 +41,7 @@
     </div>
     
     <div id="container_lateral2">
-        <div id="Introduccion">
+        <div id="introduccion">
             <h1>HI! soy un video de introduccion al juego </h1>
         </div>
     </div>
@@ -46,6 +51,11 @@
             <h1>Aqui pestañitas para poder cambiar de juego</h1>
         </div>
         <div id="contenido">
+            <div id="logged_user">
+                <form class="new-task">
+                    <input type="text" name="text" placeholder="Type to add new tasks" />
+                </form>
+            </div>
             {{> Carcassone}}
         </div>
     </div>

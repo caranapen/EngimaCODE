@@ -28,9 +28,9 @@ if (Meteor.isClient) {
             Session.set("counter2", Session.get("counter2") + 1);
         }
     });*/
-		Accounts.ui.config({
-  		passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
-		});
+    Accounts.ui.config({
+  	    passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
+	});
 
 }
 

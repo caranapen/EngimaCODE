@@ -69,6 +69,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     border: 1px solid green;
     margin: 1em;
     height: 4em;
+
 }
 
 #menu {    
@@ -93,6 +94,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     margin: 1em;
     float: left;
     height: 25em;
+
 }
 
 #chat {
@@ -123,6 +125,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     height: 40em;
     margin: 1em;
     float: left;
+
 }
 
 #menu_canvas {    

@@ -1,3 +1,11 @@
+    Meteor.startup(function () {
+			//$('#menu_principal').hide();
+			//$('#container_lateral1').hide();
+			//$('#principal').hide();					
+    });
+
+
+
    /* Session.setDefault("counter1", 0);
     Session.setDefault("counter2", 0);
     

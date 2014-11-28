@@ -1,6 +1,8 @@
 body {
 
     background-color: #1A1E21;
+    background-image: url(imagescarcassone/castle1.jpg);
+    background-attachment: fixed;
     border: 3px solid blue;
     margin: 0 auto;
     color: white;
@@ -24,15 +26,17 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 
 
 #cabecera {
-    background: url(imagescarcassone/background.gif) no-repeat;
+    background: url(imagescarcassone/background.gif);
+    background-repeat: repeat-x;    
     border: 1px solid green;
     margin: 1em;
     height: 10em;
     z-index: 300;
+    top: 50%;
 }
 
 #banner {
-    background-image: url(imagescarcassone/castle1.jpg) no-repeat;
+    background: url(imagescarcassone/enigma_banner.png);
     border: 1px solid yellow;
     float: left;
     width: 74%;
@@ -104,15 +108,27 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: left;
     height: 25em;
     z-index: 300;
-
 }
 
-#chat {
-    border: 1px solid purple;
+
+#chat{
+    border: 2px;    
+    width: 92%;
     margin: 1em;
     float: left;
     font-size: 0.6em;
-    z-index: 400;
+    z-index: 300;
+}
+
+.new-task input{
+
+  box-sizing: border-box;
+  padding: 10px;
+  background: white;
+  border: red;
+  width: 100%;
+  padding-right: 10px;
+  font-size: 2em;
 }
 
 #container_lateral2 {
@@ -201,7 +217,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 
 #globalbox, #banner, #loginbox, #registerbox, #menu,
 #container_lateral1, #container_lateral2,
-#menu_canvas, #contenido,#pie{
+#menu_canvas, #contenido,#pie, #logged_users,
+#userbox, #loginbox, #registerbox, .new-task{
 
     -webkit-box-shadow: 10px 8px 20px 8px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 8px 20px 8px rgba(0,0,0,0.75);

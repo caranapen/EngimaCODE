@@ -34,9 +34,7 @@
     
     <div id="container_lateral1">
         <div id="chat">
-            <form class="new-task">
-            	<input type="text" name="text" placeholder="Type to add new tasks" />
-            </form>
+						{{> chatemp}}
         </div>
     </div>
     
@@ -67,8 +65,23 @@
 </div>
 </body>
 
+
+<template name="chatemp">
+      <form class="new-task">
+          <input type="text" name="text" placeholder="Type to add new tasks" />
+      </form>
+			<div id = "message">
+      {{#each messages}}
+				<tr>
+				<td><strong>{{name}}:</strong></td>
+				<td>{{message}}</td>
+				</tr>
+      {{/each}}
+			</div>
+</template>
+
 <template name="userlist">
-    <h1>Usuarios en línea</h1>
+     <h1>Registro de Usuarios</h1>
 			{{# each users}}
 				{{username}}
 			{{/each}}

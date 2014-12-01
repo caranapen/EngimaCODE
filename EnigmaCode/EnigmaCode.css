@@ -208,6 +208,11 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     z-index: 300;
 }
 
+#message{
+		font-size: 13px;	
+
+}
+
 #loginbox, #registerbox, #container_lateral1, #container_lateral2, #chat,
 #menu_canvas, #contenido, #pie {
 

@@ -146,6 +146,8 @@ ul li:hover > ul {
 #message{
     font-size: 13px;	
     margin-left: 1em;
+	text-align: left;
+
 }
 
 #container_lateral2 {
@@ -189,6 +191,7 @@ ul li:hover > ul {
     width: 47%;
     z-index: 500;
     display: none;
+
 }
 
 #principal {

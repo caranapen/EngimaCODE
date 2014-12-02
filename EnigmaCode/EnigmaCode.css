@@ -4,6 +4,7 @@ body {
     background-image: url(imagescarcassone/castle1.jpg);
     background-attachment: fixed;
     border: 3px solid blue;
+    border-style: hidden;
     margin: 0 auto;
     color: white;
     font: normal "Arial";
@@ -16,6 +17,7 @@ body {
 
 #globalbox {
     border: 1px solid red;
+    border-style: hidden;
     margin: 1em;
     text-align: center;
     height: 95%;
@@ -121,7 +123,6 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
 
 .new-task input{
-
   box-sizing: border-box;
   padding: 10px;
   background: white;
@@ -220,7 +221,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
 
-#globalbox, #banner, #loginbox, #registerbox, #menu,
+
 #container_lateral1, #container_lateral2,
 #menu_canvas, #contenido,#pie, #logged_users,
 #userbox, #loginbox, #registerbox, .new-task{

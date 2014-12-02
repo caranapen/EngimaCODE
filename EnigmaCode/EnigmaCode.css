@@ -9,7 +9,7 @@ body {
     font: normal "Arial";
     font-size: 0.8em;
     line-height: 1.4;
-    height: 70em;
+    height: auto;
     z-index: 100;
 }
 
@@ -27,7 +27,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 
 
 #cabecera {
-    background: url(imagescarcassone/background.gif);
+    background: url(imagescarcassone/fondo.jpg);
     background-repeat: repeat-x;    
     border: 3px solid black;
     margin: 1em;
@@ -37,10 +37,10 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 }
 
 #banner {
-    background: url(imagescarcassone/enigma_banner.png);
+    background: url(imagescarcassone/rsz_enigma_banner.png);
     border: 1px solid black;
     float: left;
-    width: 74%;
+    width: 50%;
     height: 8em;
     margin: 1em;   
     z-index: 400; 
@@ -81,10 +81,12 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 #menu {    
     border: 2px solid black;
     width: 90%;
+    height: 3em;
     background: white;
     margin: 1em;
     float: left; 
     z-index: 400;
+    overflow: visible;
 }
 
 #menu_principal ul#menu li {
@@ -98,6 +100,15 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: left;
     z-index: 500;
     width: 7em;
+}
+
+ul ul {
+	display: none;
+	
+}
+
+ul li:hover > ul {
+	display: inline;
 }
 
 #container_lateral1 {
@@ -168,7 +179,6 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     z-index: 500;
     display: none;
 }
-
 
 #partidas {
     border: 2px solid black;

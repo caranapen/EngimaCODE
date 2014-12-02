@@ -18,18 +18,19 @@
             <div id="loginbox">
                 {{> loginButtons}}
             </div>
-
         </div>
     </div>
     
     <div id="menu_principal">
-        <ul id="menu">
-			<li><a href="#">Principal</a></li>
-			<li><a href="#">Amigos</a></li>
-			<li><a href="#">Crear juego</a></li>
-			<li><a href="#">Alianza</a></li>
-			<li><a href="#">Estadisticas</a></li>
-		</ul>
+      <ul id="menu">
+
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Amigos</a></li>
+				<li><a href="#">Crear juego</a></li>
+				<li><a href="#">Alianza</a></li>
+
+					{{> tabs}}
+			</ul>
     </div>
     
     <div id="container_lateral1">
@@ -47,7 +48,12 @@
     <div id="usuarios">
         {{> userlist}}
     </div>
+
+    <div id="partidas">
+        {{> partidastemp}}
+    </div>
     
+ 
     <div id="principal">
         <div id="contenido">
             {{> Carcassone}}
@@ -61,6 +67,15 @@
 </div>
 </body>
 
+<template name="tabs">
+					<li><a href="#" id = "registrolink">Registro</a></li>
+					<li><a href="#" id = "partidaslink">Partidas (editando)</a></li>
+</template>
+
+<template name="partidastemp">
+			<h1>Partidas</h1>
+
+</template>
 
 <template name="chatemp">
       <form class="new-task">

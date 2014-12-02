@@ -39,6 +39,16 @@ Template.chatemp.events({
 	}	
 }); 
 
+Template.tabs.events({
+	'click #partidaslink': function () {
+		$('#partidas').show();
+		$('#usuarios').hide();
+	},
+	'click #registrolink': function () {
+		$('#usuarios').show();
+		$('#partidas').hide();
+	}
+});
 
    
 /*  Configuration of signup */

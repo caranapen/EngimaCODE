@@ -169,10 +169,22 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     display: none;
 }
 
+
+#partidas {
+    border: 2px solid black;
+    background: #384047;
+    margin: 1em;
+    float: left;
+    height: 35em;
+    width: 47%;
+    z-index: 500;
+    display: none;
+}
+
 #principal {
     border: 2px solid black;
     width: 70%;
-    height: 40em;
+    height: 30em;
     margin: 1em;
     float: left;
     z-index: 300;

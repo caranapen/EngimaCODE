@@ -39,10 +39,14 @@ Template.chatemp.events({
 	}	
 }); 
 
-Template.tabs.events({
+Template.tabs.events ({
 	'click #partidaslink': function () {
 		$('#partidas').show();
 		$('#usuarios').hide();
+	},
+	'click #MejoresGeneral': function () {
+		$('#usuarios').show();
+		$('#partidas').hide();
 	},
 	'click #registrolink': function () {
 		$('#usuarios').show();
@@ -55,3 +59,4 @@ Template.tabs.events({
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
 });
+

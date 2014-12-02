@@ -66,10 +66,10 @@
 	<li><a href="#">Donaciones</a></li>
 	<li><a href="#">Estadisticas</a>
 	    <ul>
-		    <li><a href="#">General</a></li>
-		    <li><a href="#">Carcassone</a></li>
-		    <li><a href="#">Otros juegos</a></li>
-		    <li><a href="#">Personal</a></li>
+		    <li><a href="#" id="MejoresGeneral">General</a></li>
+		    <li><a href="#" id="MejoresCarcassone">Carcassone</a></li>
+		    <li><a href="#" id="MejoresOtros">Otros juegos</a></li>
+		    <li><a href="#" id="StatsPersonales">Personal</a></li>
 	    </ul>
 	</li>
 	<li><a href="#" id ="registrolink">Registro</a></li>
@@ -78,6 +78,21 @@
 
 <template name="partidastemp">
 	<h1>Partidas</h1>
+</template>
+
+<template name="MejosGeneral">
+  <h3>Ranquing general</h3>
+  <table id="rooms" class="table table-striped">  
+    <tbody>
+      {{#each best_players}}
+      <tr>
+	<td><strong>{{name}}</strong> ({{game}}): </td>
+	<td>{{points}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  
 </template>
 
 <template name="chatemp">

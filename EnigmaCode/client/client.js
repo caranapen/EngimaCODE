@@ -55,9 +55,6 @@ Template.chatemp.events({
 	}	
 }); 
 
-<<<<<<< HEAD
-Template.tabs.events ({
-=======
 var gameplay_list = [];
 Template.partidastemp.events({
 	'keydown input#partidainput': function(event){
@@ -87,14 +84,9 @@ Template.partidastemp.events({
 });
 
 Template.tabs.events({
->>>>>>> rama1
 	'click #partidaslink': function () {
 		$('#partidas').show();
 		$('#usuarios').hide();
-	},
-	'click #MejoresGeneral': function () {
-		$('#usuarios').show();
-		$('#partidas').hide();
 	},
 	'click #registrolink': function () {
 		$('#usuarios').show();
@@ -107,4 +99,3 @@ Template.tabs.events({
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_AND_OPTIONAL_EMAIL"
 });
-

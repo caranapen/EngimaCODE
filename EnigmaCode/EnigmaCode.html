@@ -12,6 +12,7 @@
     
     <div id="cabecera">
         <div id="banner">
+            <h1>Aqui va tu banner mr. Cristian!</h1>
         </div>
         <div id="userbox">
             <div id="loginbox">
@@ -21,11 +22,6 @@
     </div>
     
     <div id="menu_principal">
-<<<<<<< HEAD
-        <ul id="menu">
-		    {{> tabs}}
-        </ul>
-=======
       <ul id="menu">
 
 				<li><a href="#">Principal</a></li>
@@ -35,12 +31,11 @@
 
 					{{> tabs}}
 			</ul>
->>>>>>> rama1
     </div>
     
     <div id="container_lateral1">
         <div id="chat">
-		    {{> chatemp}}
+						{{> chatemp}}
         </div>
     </div>
     
@@ -73,26 +68,11 @@
 </body>
 
 <template name="tabs">
-    <li><a href="#">Inicio</a></li>
-	<li><a href="#">Juegos</a></li>
-	<li><a href="#">Donaciones</a></li>
-	<li><a href="#">Estadisticas</a>
-	    <ul>
-		    <li><a href="#" id="MejoresGeneral">General</a></li>
-		    <li><a href="#" id="MejoresCarcassone">Carcassone</a></li>
-		    <li><a href="#" id="MejoresOtros">Otros juegos</a></li>
-		    <li><a href="#" id="StatsPersonales">Personal</a></li>
-	    </ul>
-	</li>
-	<li><a href="#" id ="registrolink">Registro</a></li>
-	<li><a href="#" id ="partidaslink">Partidas (editando)</a></li>
+					<li><a href="#" id = "registrolink">Registro</a></li>
+					<li><a href="#" id = "partidaslink">Partidas (editando)</a></li>
 </template>
 
 <template name="partidastemp">
-<<<<<<< HEAD
-	<h1>Partidas</h1>
-</template>
-=======
 			<h1>Partidas</h1>
       <form class="new-task">
 					<br>Create Game:<br>
@@ -106,21 +86,7 @@
 				<td width= 300><input id="{{gameplay_name}}" class="joingame" type="button" value="Join" /></td>	
 				</tr>
       {{/each}}			
->>>>>>> rama1
 
-<template name="MejosGeneral">
-  <h3>Ranquing general</h3>
-  <table id="rooms" class="table table-striped">  
-    <tbody>
-      {{#each best_players}}
-      <tr>
-	<td><strong>{{name}}</strong> ({{game}}): </td>
-	<td>{{points}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  
 </template>
 
 <template name="chatemp">

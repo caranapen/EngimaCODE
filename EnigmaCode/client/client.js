@@ -14,7 +14,7 @@ Template.userlist.helpers({
  
 Template.chatemp.helpers({
 		messages: function(){
-			return Messages.find({});
+			return Messages.find({},{sort:{time: -1}});
 		} 
 }); 
 
@@ -34,7 +34,7 @@ Template.chatemp.events({
 						});
  		 			message.val('')
 				}
-      }
+			}
 		}  
 	}	
 }); 

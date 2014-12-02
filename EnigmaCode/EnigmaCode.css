@@ -108,6 +108,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     float: left;
     height: 25em;
     z-index: 300;
+	overflow: scroll;
+
 }
 
 
@@ -209,6 +211,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
 #message{
+
 		font-size: 13px;	
 
 }

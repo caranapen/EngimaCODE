@@ -26,7 +26,7 @@
 
 				<li><a href="#">Principal</a></li>
 				<li><a href="#">Amigos</a></li>
-				<li><a href="#">Crear juego</a></li>
+				<li><a href="#">Crear Partida</a></li>
 				<li><a href="#">Alianza</a></li>
 
 					{{> tabs}}
@@ -74,24 +74,34 @@
 
 <template name="partidastemp">
 			<h1>Partidas</h1>
+      <form class="new-task">
+					<br>Create Game:<br>
+          <input type="text" id = "partidainput" name="text"/>
+      </form>
+
+      {{#each gameplays}}
+				<tr>
+				<td width= 300><strong>{{gameplay_name}}:</strong></td>
+				<td width= 300> Creada por {{creator_name}}</td>
+				<td width= 300><input id="{{gameplay_name}}" class="joingame" type="button" value="Join" /></td>	
+				</tr>
+      {{/each}}			
 
 </template>
 
 <template name="chatemp">
-      <form class="new-task">
-          <input type="text" name="text"/>
-      </form>
-			<div id = "message">
+	<form class="new-task">
+		<input type="text" id="chatinput" name="text"/>
+	</form>
+	<div id = "message">
       {{#each messages}}
-				<tr>
-				<td><strong>{{name}}:</strong></td>
-				<td>{{message}}</td>
-				</tr>
+			<strong> {{name}}:	</strong>{{message}}<br>	
       {{/each}}
-			</div>
+	</div>
 </template>
 
 <template name="userlist">
+
      <h1>Registro de Usuarios</h1>
 			{{# each users}}
 				{{username}}

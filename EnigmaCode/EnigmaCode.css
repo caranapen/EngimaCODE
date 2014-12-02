@@ -135,6 +135,8 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
 #message{
     font-size: 13px;	
     margin-left: 1em;
+	text-align: left;
+
 }
 
 #container_lateral2 {
@@ -179,6 +181,7 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     width: 47%;
     z-index: 500;
     display: none;
+
 }
 
 #principal {

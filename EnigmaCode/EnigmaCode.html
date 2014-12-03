@@ -12,6 +12,7 @@
     
     <div id="cabecera">
         <div id="banner">
+            <h1>Aqui va tu banner mr. Cristian!</h1>
         </div>
         <div id="userbox">
             <div id="loginbox">
@@ -21,14 +22,20 @@
     </div>
     
     <div id="menu_principal">
-        <ul id="menu">
-		    {{> tabs}}
-        </ul>
+      <ul id="menu">
+
+				<li><a href="#">Principal</a></li>
+				<li><a href="#">Amigos</a></li>
+				<li><a href="#">Crear Partida</a></li>
+				<li><a href="#">Alianza</a></li>
+
+					{{> tabs}}
+			</ul>
     </div>
     
     <div id="container_lateral1">
         <div id="chat">
-		    {{> chatemp}}
+						{{> chatemp}}
         </div>
     </div>
     
@@ -61,55 +68,40 @@
 </body>
 
 <template name="tabs">
-    <li><a href="#">Inicio</a></li>
-	<li><a href="#">Juegos</a></li>
-	<li><a href="#">Donaciones</a></li>
-	<li><a href="#">Estadisticas</a>
-	    <ul>
-		    <li><a href="#" id="MejoresGeneral">General</a></li>
-		    <li><a href="#" id="MejoresCarcassone">Carcassone</a></li>
-		    <li><a href="#" id="MejoresOtros">Otros juegos</a></li>
-		    <li><a href="#" id="StatsPersonales">Personal</a></li>
-	    </ul>
-	</li>
-	<li><a href="#" id ="registrolink">Registro</a></li>
-	<li><a href="#" id ="partidaslink">Partidas (editando)</a></li>
+					<li><a href="#" id = "registrolink">Registro</a></li>
+					<li><a href="#" id = "partidaslink">Partidas (editando)</a></li>
 </template>
 
 <template name="partidastemp">
-	<h1>Partidas</h1>
-</template>
+			<h1>Partidas</h1>
+      <form class="new-task">
+					<br>Create Game:<br>
+          <input type="text" id = "partidainput" name="text"/>
+      </form>
 
-<template name="MejosGeneral">
-  <h3>Ranquing general</h3>
-  <table id="rooms" class="table table-striped">  
-    <tbody>
-      {{#each best_players}}
-      <tr>
-	<td><strong>{{name}}</strong> ({{game}}): </td>
-	<td>{{points}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  
+      {{#each gameplays}}
+				<tr>
+				<td width= 300><strong>{{gameplay_name}}:</strong></td>
+				<td width= 300> Creada por {{creator_name}}</td>
+				<td width= 300><input id="{{gameplay_name}}" class="joingame" type="button" value="Join" /></td>	
+				</tr>
+      {{/each}}			
+
 </template>
 
 <template name="chatemp">
-      <form class="new-task">
-          <input type="text" name="text"/>
-      </form>
-			<div id = "message">
+	<form class="new-task">
+		<input type="text" id="chatinput" name="text"/>
+	</form>
+	<div id = "message">
       {{#each messages}}
-				<tr>
-				<td><strong>{{name}}:</strong></td>
-				<td>{{message}}</td>
-				</tr>
+			<strong> {{name}}:	</strong>{{message}}<br>	
       {{/each}}
-			</div>
+	</div>
 </template>
 
 <template name="userlist">
+
      <h1>Registro de Usuarios</h1>
 			{{# each users}}
 				{{username}}

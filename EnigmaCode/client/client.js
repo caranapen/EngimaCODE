@@ -127,8 +127,13 @@ Template.waitingtemp.events ({
 	'click input.exitgame': function(event){
 		
 		if (confirm ("Seguro quieres abandonar la partida?")){
+			// Quitamos el jugador de la partida
+			
+			// fuente reactiva para actualizar el numero de jugadores que hay en
+			// la partida
 
 			alert ("Has abandonado la partida");		
+
 		}
 	}
 

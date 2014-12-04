@@ -47,7 +47,13 @@ Template.waitingtemp.helpers({
 	
 	waiting: function(){
 		return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
+	},
+
+	'click input.exitgame': function(event){
+
+		alert("Seguro que quieres salir");
 	}
+	
 });
 
 
@@ -118,12 +124,7 @@ Template.partidastemp.events({
 		$('#waiting').show();
 		// alert(Gameplays.findOne({gameplay_name: event.target.id})._id);
 
-	}, 
- 
-	'click input.exitgame': function(event){
-
-		alert("Seguro que quieres salir");
-	},
+	}	
 });
 
 

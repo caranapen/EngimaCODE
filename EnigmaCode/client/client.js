@@ -49,11 +49,6 @@ Template.waitingtemp.helpers({
 		return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
 	},
 
-	'click input.exitgame': function(event){
-
-		alert("Seguro que quieres salir");
-	}
-	
 });
 
 
@@ -127,6 +122,14 @@ Template.partidastemp.events({
 	}	
 });
 
+Template.waitingtemp.events ({
+
+	'click input.exitgame': function(event){
+
+		alert("Seguro que quieres salir");
+	}
+	
+});
 
 
 Template.tabs.events({

@@ -125,10 +125,13 @@ Template.partidastemp.events({
 Template.waitingtemp.events ({
 
 	'click input.exitgame': function(event){
+		
+		if (confirm ("Seguro quieres abandonar la partida?")){
 
-		alert("Seguro que quieres salir");
+			alert ("Has abandonado la partida");		
+		}
 	}
-	
+
 });
 
 

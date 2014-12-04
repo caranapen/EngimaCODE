@@ -103,6 +103,7 @@ Template.partidastemp.events({
 			
 		}
 	},
+
 	'click input.joingame': function(event){
 
 		lim = ($(this)[0]).num_players + 1 ;
@@ -117,7 +118,12 @@ Template.partidastemp.events({
 		$('#waiting').show();
 		// alert(Gameplays.findOne({gameplay_name: event.target.id})._id);
 
-	}
+	}, 
+ 
+	'click input.exitgame': function(event){
+
+		alert("Seguro que quieres salir");
+	},
 });
 
 

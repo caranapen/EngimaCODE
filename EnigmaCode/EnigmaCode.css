@@ -162,6 +162,7 @@ ul li:hover > ul {
 }
 
 #container_lateral2 h1 {    
+    text-align: center;
     border: 2px solid black;
     background: grey;
     margin: 1em;

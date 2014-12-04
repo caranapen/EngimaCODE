@@ -194,6 +194,19 @@ ul li:hover > ul {
 
 }
 
+#waiting {
+
+    border: 2px solid black;
+    background: #384047;
+    margin: 1em;
+    float: left;
+    height: 35em;
+    width: 47%;
+    z-index: 500;
+    display: none;
+
+}
+
 #principal {
     border: 2px solid black;
     width: 70%;

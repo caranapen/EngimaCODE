@@ -52,10 +52,15 @@
     <div id="partidas">
         {{> partidastemp}}
     </div>
+
+    <div id="waiting">
+       	{{> waitingtemp}}
+   	</div>
     
- 
     <div id="principal">
+
         <div id="contenido">
+		
             {{> Carcassone}}
         </div>
     </div>
@@ -82,8 +87,8 @@
       {{#each gameplays}}
 				<tr>
 				<td width= 300><strong>{{gameplay_name}}:</strong></td>
-				<td width= 300> Creada por {{creator_name}}</td>
-				<td width= 300><input id="{{gameplay_name}}" class="joingame" type="button" value="Join" /></td>	
+				<td width= 300> Creada por {{creator_name}} {{num_players}}/{{lim}}</td>
+				<td width= 300><input class="joingame" type="button" value="Join" /></td>	
 				</tr>
       {{/each}}			
 
@@ -100,6 +105,13 @@
 	</div>
 </template>
 
+<template name="waitingtemp">
+	<h1> Esperando a otros jugadores </h1>
+     <p>{{waiting}}/3 </p>
+		
+</template>
+
+
 <template name="userlist">
 
      <h1>Registro de Usuarios</h1>
@@ -107,6 +119,7 @@
 				{{username}}
 			{{/each}}
 </template>
+
 
 <template name="Carcassone">
     <canvas id='game' width='320' height='480'></canvas> 

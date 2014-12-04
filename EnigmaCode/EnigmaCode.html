@@ -105,10 +105,12 @@
 	</div>
 </template>
 
-<template name="waitingtemp">
-	<h1> Esperando a otros jugadores </h1>
+
+<template name="waitingtemp">	
+  <h1> Esperando a otros jugadores </h1>
      <p>{{waiting}}/3 </p>
-		
+
+  <td width= 300><input class="exitgame" type="button" value="Salir" /></td> 
 </template>
 
 
@@ -119,7 +121,7 @@
      {{# each users}}  			           
   			{{username}}<br>
       {{/each}}
-      
+
 </template>
 
 

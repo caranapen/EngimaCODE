@@ -67,8 +67,9 @@ Template.chatemp.events({
 						name: name,
 						message: message.val(),
 						time: Date.now(),
+						message.val('')
 						});
- 		 			message.val('')
+ 		 			
 				}
 			}
 		}  

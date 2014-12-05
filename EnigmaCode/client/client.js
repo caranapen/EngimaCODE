@@ -131,13 +131,16 @@ Template.waitingtemp.events ({
 	'click input.exitgame': function(event){
 		
 		if (confirm ("Seguro quieres abandonar la partida?")){
-			// Quitamos el jugador de la partida
+				
+			Gameplays.update({_id : Session.get("partida_actual")}, {$pop: {gameplay_list: 1}, $inc: {num_players: -1}});
+
+			alert ("Has abandonado la partida");	
+
+			Session.set("partida_actual", Session.get("partida_actual"));
 			
-			// fuente reactiva para actualizar el numero de jugadores que hay en
-			// la partida
-
-			alert ("Has abandonado la partida");		
-
+			$('#partidas').show();	
+			
+			$('#waiting').hide();	
 		}
 	}
 

@@ -83,15 +83,29 @@ Template.partidastemp.events({
 				var creator_name = Meteor.user().username;
 				var creator_id = Meteor.user()._id;
 				var gameplay_name = $('input#partidainput');
-					if (gameplay_name.value != '') {
-						Gameplays.insert({
-							creator_name: creator_name,
-							creator_id: creator_id,
-							gameplay_name: gameplay_name.val(),
-							gameplay_list: [],
-							num_players: 1,
-							time: Date.now(),
-							});
+
+	//			alert(gameplay_name.val());
+				var existente = Gameplays.findOne({gameplay_name: gameplay_name.val()});
+				console.log(existente);
+
+				if (existente !== undefined){
+
+					alert("Ya existe una partida con ese nombre, pon un nombre distinto");
+					$('#partidas').show();
+					$('#waiting').hide();
+				}
+
+				if (gameplay_name.value != '' && (existente === undefined)) {
+					
+					Gameplays.insert({
+						creator_name: creator_name,
+						creator_id: creator_id,
+						gameplay_name: gameplay_name.val(),
+						gameplay_list: [],
+						num_players: 1,
+						time: Date.now(),
+						});
+
 					var gameplay_id = Gameplays.findOne({gameplay_name: gameplay_name.val()})._id;
 					gameplay_name.val('');
 					Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
@@ -103,7 +117,7 @@ Template.partidastemp.events({
 					//$('input.joingame').attr('disabled', true);
 					$('#waiting').show();
 					//Session.set('')
-					}			
+				}			
 			}	
 		}
 	},
@@ -136,6 +150,7 @@ Template.waitingtemp.events ({
 			if (Meteor.userId() === current_gameplay.creator_id){
 				//Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: [], gameplay_name: undefined}});
 				Gameplays.remove({_id: gameplay_id});	
+
 				
 			}else{
 				gameplay_list = Gameplays.findOne({_id: gameplay_id}).gameplay_list;

@@ -38,17 +38,19 @@ Template.partidastemp.helpers({
 		gameplays: function(){
 			return Gameplays.find({});
 		},
-		lim: function(){
-			return "3";
+		max_players1: function(){
+			return Session.get('max_players');
 		} 
 }); 
 
 Template.waitingtemp.helpers({
 	
-	waiting: function(){
-		return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
-	},
-
+		waiting: function(){
+			return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		}
 });
 
 
@@ -109,7 +111,9 @@ Template.partidastemp.events({
 
 		lim = ($(this)[0]).num_players + 1 ;
 		console.log(lim);
-		if (((lim <= 2) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
+		max_players = 8;
+		Session.set('max_players', max_players);
+		if (((lim <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
 			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
 		}
 //, 

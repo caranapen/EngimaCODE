@@ -109,7 +109,7 @@ Template.partidastemp.events({
 
 		lim = ($(this)[0]).num_players + 1 ;
 		console.log(lim);
-		if (lim <= 3){
+		if (((lim <= 2) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
 			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
 		}
 //, 

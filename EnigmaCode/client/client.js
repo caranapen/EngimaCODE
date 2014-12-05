@@ -81,29 +81,30 @@ Template.partidastemp.events({
 		if (event.which == 13) {
 			if (Meteor.userId()){
 				var creator_name = Meteor.user().username;
+				var creator_id = Meteor.user()._id;
 				var gameplay_name = $('input#partidainput');
-				gameplay_list.push(Meteor.user()._id)
-				if (gameplay_name.value != '') {
-					Gameplays.insert({
-						creator_name: creator_name,
-						gameplay_name: gameplay_name.val(),
-						gameplay_list: gameplay_list,
-						num_players: 1,
-						time: Date.now(),
-						});
-				var gameplay_id = Gameplays.findOne({gameplay_name: gameplay_name.val()})._id;
-				gameplay_name.val('');
-				//Gameplays.update({_id : gameplay_id}, {$inc: {num_players: 1}});
-				Session.set("partida_actual", gameplay_id);
-				$('#partidas').hide();	
-				//$('input#partidainput').attr('disabled', true);
-				//$('input.joingame').attr('disabled', true);
-				$('#waiting').show();
-				//Session.set('')
-				}
-			}
-
-			
+					if (gameplay_name.value != '') {
+						Gameplays.insert({
+							creator_name: creator_name,
+							creator_id: creator_id,
+							gameplay_name: gameplay_name.val(),
+							gameplay_list: [],
+							num_players: 1,
+							time: Date.now(),
+							});
+					var gameplay_id = Gameplays.findOne({gameplay_name: gameplay_name.val()})._id;
+					gameplay_name.val('');
+					Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
+					//Gameplays.update({_id : gameplay_id}, {$inc: {num_players: 1}});
+					Session.set("partida_actual", gameplay_id);
+					Session.set('max_players', 8);
+					$('#partidas').hide();	
+					//$('input#partidainput').attr('disabled', true);
+					//$('input.joingame').attr('disabled', true);
+					$('#waiting').show();
+					//Session.set('')
+					}			
+			}	
 		}
 	},
 
@@ -111,8 +112,7 @@ Template.partidastemp.events({
 
 		lim = ($(this)[0]).num_players + 1 ;
 		console.log(lim);
-		max_players = 8;
-		Session.set('max_players', max_players);
+		max_players = Session.get('max_players');
 		if (((lim <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
 			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
 		}
@@ -129,21 +129,29 @@ Template.partidastemp.events({
 Template.waitingtemp.events ({
 
 	'click input.exitgame': function(event){
-		
-		if (confirm ("Seguro quieres abandonar la partida?")){
+		if (confirm ("¿Seguro que quieres abandonar la partida?")){
+			var gameplay_id =  Session.get('partida_actual')
+			var current_gameplay = Gameplays.findOne({_id: gameplay_id});
 				
-			Gameplays.update({_id : Session.get("partida_actual")}, {$pop: {gameplay_list: 1}, $inc: {num_players: -1}});
-
-			alert ("Has abandonado la partida");	
-
-			Session.set("partida_actual", Session.get("partida_actual"));
-			
-			$('#partidas').show();	
-			
-			$('#waiting').hide();	
+			if (Meteor.userId() === current_gameplay.creator_id){
+				//Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: [], gameplay_name: undefined}});
+				Gameplays.remove({_id: gameplay_id});	
+				
+			}else{
+				gameplay_list = Gameplays.findOne({_id: gameplay_id}).gameplay_list;
+				index = gameplay_list.indexOf(Meteor.userId());
+				console.log(index);
+				if (index !== -1){
+					gameplay_list.splice(index,1);
+					Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: gameplay_list}, $inc: {num_players: -1}});
+				}
+		
+			}
+			$('#waiting').hide();
+			$('#partidas').show();
 		}
 	}
-
+	
 });
 
 

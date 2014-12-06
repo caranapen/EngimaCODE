@@ -2,6 +2,8 @@ body {
     background-color: #1A1E21;
     background-image: url(imagescarcassone/castle1.jpg);
     background-attachment: fixed;
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
     border: 3px solid blue;
     border-style: hidden;
     margin: 0 auto;
@@ -182,7 +184,6 @@ ul li:hover > ul {
     width: 20em;
     overflow: scroll;
     z-index: 500;
-    display: none;
 }
 
 #partidas {
@@ -193,12 +194,9 @@ ul li:hover > ul {
     height: 35em;
     width: 47%;
     z-index: 500;
-    display: none;
-
 }
 
 #waiting {
-
     border: 2px solid black;
     background: #384047;
     margin: 1em;
@@ -206,8 +204,6 @@ ul li:hover > ul {
     height: 35em;
     width: 47%;
     z-index: 500;
-    display: none;
-
 }
 
 #principal {

@@ -2,7 +2,9 @@
 Meteor.startup(function () {
 			//$('#menu_principal').hide();
 			//$('#container_lateral1').hide();
-			//$('#principal').hide();					
+			//$('#principal').hide();
+	Session.set('max_players', 8);
+	Session.set('tab', null);				
 });
 
 Meteor.subscribe("userNames");
@@ -10,6 +12,11 @@ Meteor.subscribe("userNames");
 Meteor.subscribe("gameplays");
 
 Meteor.subscribe("messages");
+
+
+function changeView(view) {
+	Session.set('tab', view);
+}
 
 
 // Pruebas con Tracker.autorun
@@ -38,7 +45,7 @@ Template.partidastemp.helpers({
 		gameplays: function(){
 			return Gameplays.find({});
 		},
-		max_players1: function(){
+		max_players: function(){
 			return Session.get('max_players');
 		} 
 }); 
@@ -66,10 +73,9 @@ Template.chatemp.events({
 						user_id: user_id,
 						name: name,
 						message: message.val(),
-						time: Date.now(),
-						message.val('')
-						});
- 		 			
+						time: Date.now()
+					});
+ 		 			message.val('')	
 				}
 			}
 		}  
@@ -92,8 +98,7 @@ Template.partidastemp.events({
 				if (existente !== undefined){
 
 					alert("Ya existe una partida con ese nombre, pon un nombre distinto");
-					$('#partidas').show();
-					$('#waiting').hide();
+					changeView('partidas');
 				}
 
 				if (gameplay_name.value != '' && (existente === undefined)) {
@@ -112,11 +117,11 @@ Template.partidastemp.events({
 					Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
 					//Gameplays.update({_id : gameplay_id}, {$inc: {num_players: 1}});
 					Session.set("partida_actual", gameplay_id);
-					Session.set('max_players', 8);
-					$('#partidas').hide();	
+
+
+					changeView('waiting');	
 					//$('input#partidainput').attr('disabled', true);
 					//$('input.joingame').attr('disabled', true);
-					$('#waiting').show();
 					//Session.set('')
 				}			
 			}	
@@ -133,9 +138,8 @@ Template.partidastemp.events({
 		}
 //, 
 		Session.set("partida_actual", $(this)[0]._id);
-		$('#partidas').hide();	
+		changeView('waiting');
 		//$('input.joingame').attr('disabled', true);
-		$('#waiting').show();
 		// alert(Gameplays.findOne({gameplay_name: event.target.id})._id);
 
 	}	
@@ -163,14 +167,32 @@ Template.waitingtemp.events ({
 				}
 		
 			}
-			$('#waiting').hide();
-			$('#partidas').show();
+			changeView('partidas');
 		}
 	}
 	
 });
 
+Template.views.helpers({
+	tab: function() {
+		var tab = {};
+		tab['usuarios'] = Session.get('tab') === 'usuarios';
+		tab['partidas'] = Session.get('tab') === 'partidas';
+		tab['waiting'] = Session.get('tab') === 'waiting';
+		return tab;
+	}
+});
 
+Template.tabs.events({
+	'click #partidaslink': function () {
+		changeView('partidas');
+	},
+	'click #registrolink': function () {
+		changeView('usuarios');
+	}
+});
+
+/*
 Template.tabs.events({
 	'click #partidaslink': function () {
 		$('#partidas').show();
@@ -183,7 +205,7 @@ Template.tabs.events({
 		$('#waiting').hide();
 	}
 });
-
+*/
    
 /*  Configuration of signup */
 Accounts.ui.config({

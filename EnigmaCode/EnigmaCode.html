@@ -1,12 +1,5 @@
 
 
-<head>
-    <link rel="stylesheet" type="text/css" href="EnigmaCode.css">
-    <script src="EnigmaCode.js"></script>
-    <meta charset="utf-8"/>
-    <tittle>EnigmaCode-Plataforma</tittle>
-</head>
-
 <body>
 <div id="globalbox">
     
@@ -44,19 +37,8 @@
         <embed width="350" height="250"
             src="https://www.youtube.com/v/KuwGehijgF8">
     </div>
-    
-    <div id="usuarios">
-        {{> userlist}}
-    </div>
 
-    <div id="partidas">
-        {{> partidastemp}}
-    </div>
-
-    <div id="waiting">
-       	{{> waitingtemp}}
-   	</div>
-    
+	{{> views}}
     <div id="principal">
 
         <div id="contenido">
@@ -72,6 +54,28 @@
 </div>
 </body>
 
+<template name="views">
+
+	{{#if tab.usuarios}}
+    <div id="usuarios">
+        {{> userlist}}
+    </div>
+	{{/if}}
+
+	{{#if tab.partidas}}
+    <div id="partidas">
+        {{> partidastemp}}
+    </div>
+	{{/if}}
+
+	{{#if tab.waiting}}
+    <div id="waiting">
+       	{{> waitingtemp}}
+   	</div>
+	{{/if}}
+    
+</template>
+
 <template name="tabs">
 					<li><a href="#" id = "registrolink">Registro</a></li>
 					<li><a href="#" id = "partidaslink">Partidas (editando)</a></li>
@@ -79,15 +83,16 @@
 
 <template name="partidastemp">
 			<h1>Partidas</h1>
+
       <form class="new-task">
 					<br>Create Game:<br>
-          <input type="text" id = "partidainput" name="text"/>
+          <input type="text" id = "partidainput"/>
       </form>
 
       {{#each gameplays}}
 				<tr>
 				<td width= 300><strong>{{gameplay_name}}:</strong></td>
-				<td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players1}}</td>
+				<td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>
 				<td width= 300><input class="joingame" type="button" value="Join" /></td>	
 				</tr>
       {{/each}}			
@@ -96,7 +101,7 @@
 
 <template name="chatemp">
 	<form class="new-task">
-		<input type="text" id="chatinput" name="text"/>
+		<input type="text" id="chatinput"/>
 	</form>
 	<div id = "message">
       {{#each messages}}

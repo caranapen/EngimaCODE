@@ -154,6 +154,7 @@ Template.waitingtemp.events ({
 				
 			if (Meteor.userId() === current_gameplay.creator_id){
 				//Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: [], gameplay_name: undefined}});
+				changeView('partidas');
 				Gameplays.remove({_id: gameplay_id});	
 
 				
@@ -165,9 +166,8 @@ Template.waitingtemp.events ({
 					gameplay_list.splice(index,1);
 					Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: gameplay_list}, $inc: {num_players: -1}});
 				}
-		
+				changeView('partidas');
 			}
-			changeView('partidas');
 		}
 	}
 	

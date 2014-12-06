@@ -38,7 +38,9 @@
             src="https://www.youtube.com/v/KuwGehijgF8">
     </div>
 
-	{{> views}}
+	{{#if currentUser}}
+		{{> views}}
+	{{/if}}
     <div id="principal">
 
         <div id="contenido">

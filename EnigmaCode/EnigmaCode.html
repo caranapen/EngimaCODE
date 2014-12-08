@@ -15,20 +15,14 @@
     </div>
     
     <div id="menu_principal">
-      <ul id="menu">
-
-				<li><a href="#">Principal</a></li>
-				<li><a href="#">Amigos</a></li>
-				<li><a href="#">Crear Partida</a></li>
-				<li><a href="#">Alianza</a></li>
-
-					{{> tabs}}
-			</ul>
+        <ul id="menu">
+		    {{> tabs}}
+	    </ul>
     </div>
     
     <div id="container_lateral1">
         <div id="chat">
-						{{> chatemp}}
+		    {{> chatemp}}
         </div>
     </div>
     
@@ -79,26 +73,37 @@
 </template>
 
 <template name="tabs">
-					<li><a href="#" id = "registrolink">Registro</a></li>
-					<li><a href="#" id = "partidaslink">Partidas (editando)</a></li>
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Juegos</a></li>
+    <li><a href="#">Donaciones</a></li>
+    <li><a href="#">Crear Partida</a></li> 	
+    <li><a href="#">Estadisticas</a> 	
+        <ul>
+            <li><a href="#" id="StatsPersonales">Personal</a></li> 
+            <li><a href="#" id="MejoresGeneral">General</a></li> 	
+            <li><a href="#" id="MejoresCarcassone">Carcassone</a></li> 	
+            <li><a href="#" id="MejoresOtros">Otros juegos</a></li> 		
+        </ul> 	
+    </li> 	
+    <li><a href="#" id ="registrolink">Registro</a></li> 	
+    <li><a href="#" id ="partidaslink">Partidas (editando)</a></li> 	
 </template>
 
 <template name="partidastemp">
-			<h1>Partidas</h1>
+	<h1>Partidas</h1>
 
-      <form class="new-task">
-					<br>Create Game:<br>
-          <input type="text" id = "partidainput"/>
-      </form>
+    <form class="new-task">
+		<br>Create Game:<br>
+        <input type="text" id = "partidainput"/>
+    </form>
 
-      {{#each gameplays}}
-				<tr>
-				<td width= 300><strong>{{gameplay_name}}:</strong></td>
-				<td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>
-				<td width= 300><input class="joingame" type="button" value="Join" /></td>	
-				</tr>
-      {{/each}}			
-
+    {{#each gameplays}}
+	<tr>
+	    <td width= 300><strong>{{gameplay_name}}:</strong></td>
+	    <td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>
+		<td width= 300><input class="joingame" type="button" value="Join" /></td>	
+	</tr>
+    {{/each}}			
 </template>
 
 <template name="chatemp">
@@ -114,22 +119,17 @@
 
 
 <template name="waitingtemp">	
-  <h1> Esperando a otros jugadores </h1>
-     <p>{{waiting}}/{{max_players}} </p>
-  
-  <input class="exitgame" type="button" value="Salir">
-
+    <h1> Esperando a otros jugadores </h1>
+    <p>{{waiting}}/{{max_players}} </p>
+    <input class="exitgame" type="button" value="Salir">
 </template>
 
 
 <template name="userlist">
-
      <h1>Registro de Usuarios</h1>
-     
      {{# each users}}  			           
-  			{{username}}<br>
-      {{/each}}
-
+  	    {{username}}<br>
+     {{/each}}
 </template>
 
 

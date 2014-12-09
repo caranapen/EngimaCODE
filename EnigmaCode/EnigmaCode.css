@@ -164,13 +164,29 @@ ul li:hover > ul {
     background: #384047;
 }
 
-#container_lateral2 h1 {    
+#logintroduccion {
+    display: inline;
+}
+
+#logintroduccion h1 {    
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid green;
     background: grey;
     margin: 1em;
     float: left;
     font-size: 1.5em;
+    display: inline;
+    z-index: 400;
+}
+
+#logestadisticas {    
+    text-align: center;
+    border: 2px solid red;
+    background: grey;
+    margin: 1em;
+    float: left;
+    font-size: 1.5em;
+    display: none;
     z-index: 400;
 }
 

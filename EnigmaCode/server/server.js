@@ -15,3 +15,8 @@ Meteor.publish("messages", function() {
 Meteor.publish("gameplays", function() {
 	return Gameplays.find();
 });
+
+Meteor.publish("estadisticas", function () {
+    // Publica datos guardados de cada jugador
+    return Stats.find();
+});

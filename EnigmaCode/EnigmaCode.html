@@ -27,9 +27,14 @@
     </div>
     
     <div id="container_lateral2">
-        <h1>Vídeo de introducción al juego</h1>
-        <embed width="350" height="250"
-            src="https://www.youtube.com/v/KuwGehijgF8">
+        <div id="logintroduccion">
+            <h1> Video de introduccion al juego</h1>
+            <embed width="350" height="250"
+                src="https://www.youtube.com/v/KuwGehijgF8">
+        </div>
+        <div id="logestadisticas">
+            {{> viewsEstadisticas}}
+        </div>
     </div>
 
 	{{#if currentUser}}
@@ -70,12 +75,6 @@
    	</div>
 	{{/if}}
 	
-	{{#if tab.estadisticas}}
-    <div id="estadisticas">
-       	{{> StatsPersonales}}
-   	</div>
-	{{/if}}
-	
 </template>
 
 <template name="tabs">
@@ -95,9 +94,36 @@
     <li><a href="#" id ="partidaslink">Partidas (editando)</a></li> 	
 </template>
 
+<template name="viewsEstadisticas">
+    {{#if current.StatsPersonales}}
+    <div id="StatsPersonales">
+        {{> StatsPersonales}}
+    </div>
+	{{/if}}
+
+	{{#if current.MejoresGeneral}}
+    <div id="MejoresGeneral">
+        {{> MejoresGeneral}}
+    </div>
+	{{/if}}
+
+	{{#if current.MejoresCarcasssone}}
+    <div id="MejoresCarcasonne">
+       	{{> MejoresCarcasssone}}
+   	</div>
+	{{/if}}
+	
+	{{#if current.MejoresOtros}}
+    <div id="MejoresOtros">
+       	{{> MejoresOtros}}
+   	</div>
+	{{/if}}
+</template>
+
 <template name="StatsPersonales">
+    <h1>funciona</h1>
     <div id="personal">
-        {{#each player}}
+        {{#each stats}}
             <tr>
 	            <td><strong>{{name}}</strong> ({{game_name}}): </td>
 	            Puntos: <td>{{points}}</td>

@@ -179,7 +179,6 @@ Template.views.helpers({
 		tab['usuarios'] = Session.get('tab') === 'usuarios';
 		tab['partidas'] = Session.get('tab') === 'partidas';
 		tab['waiting'] = Session.get('tab') === 'waiting';
-		tab['estadisticas'] = Session.get('tab') === 'estadisticas';
 		return tab;
 	}
 });
@@ -190,15 +189,57 @@ Template.tabs.events({
 	},
 	'click #registrolink': function () {
 		changeView('usuarios');
-	}
-	'click #StatsPersonales': function () {
-		changeView('estadisticas');
 	}	
 });
 
-/* */
-Template.StatsPersonales.helpers({
+/*
+Template.StatsPersonales.events = {
+    'click #StatsPersonales': function () {
+        $('#container_lateral2 h1').hide();
+        $('#container_lateral2 h2').show();
+        var playerStat = Stats.findOne({name:"StatsPersonales"});
+        Session.set("current_stat", playerStat._id);
+    }
+}*/
+
+Template.viewsEstadisticas.helpers ({
+    current: function() {
+	var current = {};
+	current['StatsPersonales'] = Session.get('current') == 'StatPersonales';
+	current['MejoresGeneral'] = Session.get('current') == 'MejoresGeneral';
+	current['MejoresCarcassone'] = Session.get('current') == 'MejoresCarcassone';
+	current['MejoresOtros'] = Session.get('current') == 'MejoresOtros';
+	return tab;
+	}
 });
+
+Template.StatPersonales.helpers({
+    name: function(){
+		return "none";
+	},
+    game_name: function(){
+		return "none";
+	},
+	points: function(){
+		return "none";
+	},
+    played_games: function(){
+		return "none";
+	},
+	winned_games: function(){
+		return "none";
+	},
+    drawed_games: function(){
+		return "none";
+	},
+	lossed_games: function(){
+		return "none";
+	},
+    points_per_game: function(){
+		return "none";
+	}
+});
+
 /*
 Template.tabs.events({
 	'click #partidaslink': function () {

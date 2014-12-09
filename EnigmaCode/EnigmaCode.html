@@ -69,7 +69,13 @@
        	{{> waitingtemp}}
    	</div>
 	{{/if}}
-    
+	
+	{{#if tab.estadisticas}}
+    <div id="estadisticas">
+       	{{> StatsPersonales}}
+   	</div>
+	{{/if}}
+	
 </template>
 
 <template name="tabs">
@@ -79,14 +85,30 @@
     <li><a href="#">Crear Partida</a></li> 	
     <li><a href="#">Estadisticas</a> 	
         <ul>
-            <li><a href="#" id="StatsPersonales">Personal</a></li> 
-            <li><a href="#" id="MejoresGeneral">General</a></li> 	
-            <li><a href="#" id="MejoresCarcassone">Carcassone</a></li> 	
-            <li><a href="#" id="MejoresOtros">Otros juegos</a></li> 		
+            <li><a href="#StatsPersonales" id="StatsPersonales">Personal</a></li> 
+            <li><a href="#MejoresGeneral" id="MejoresGeneral">General</a></li> 	
+            <li><a href="#MejoresCarcassone" id="MejoresCarcassone">Carcassone</a></li> 	
+            <li><a href="#MejoresOtros" id="MejoresOtros">Otros juegos</a></li> 		
         </ul> 	
     </li> 	
     <li><a href="#" id ="registrolink">Registro</a></li> 	
     <li><a href="#" id ="partidaslink">Partidas (editando)</a></li> 	
+</template>
+
+<template name="StatsPersonales">
+    <div id="personal">
+        {{#each player}}
+            <tr>
+	            <td><strong>{{name}}</strong> ({{game_name}}): </td>
+	            Puntos: <td>{{points}}</td>
+	            Partidas totales jugadas:<td>{{played_games}}</td>
+	            Partidas ganadas: <td>{{winned_games}}</td>
+	            Partidas empatadas: <td>{{drawed_games}}</td>
+	            Partidas perdidas: <td>{{lossed_games}}</td>
+	            Puntos por partida: <td>{{point_per_game}}</td>
+            </tr>
+        {{/each}}
+    </div>
 </template>
 
 <template name="partidastemp">

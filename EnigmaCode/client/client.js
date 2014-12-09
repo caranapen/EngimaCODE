@@ -179,6 +179,7 @@ Template.views.helpers({
 		tab['usuarios'] = Session.get('tab') === 'usuarios';
 		tab['partidas'] = Session.get('tab') === 'partidas';
 		tab['waiting'] = Session.get('tab') === 'waiting';
+		tab['estadisticas'] = Session.get('tab') === 'estadisticas';
 		return tab;
 	}
 });
@@ -190,8 +191,14 @@ Template.tabs.events({
 	'click #registrolink': function () {
 		changeView('usuarios');
 	}
+	'click #StatsPersonales': function () {
+		changeView('estadisticas');
+	}	
 });
 
+/* */
+Template.StatsPersonales.helpers({
+});
 /*
 Template.tabs.events({
 	'click #partidaslink': function () {

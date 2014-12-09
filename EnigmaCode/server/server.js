@@ -4,9 +4,6 @@ Meteor.startup(function () {
     // code to run on server at startup
 });
 
-
-
-
 Meteor.publish("userNames", function() {
     return Meteor.users.find ({}, {fields: {username:1}});
 });

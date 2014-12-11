@@ -4,7 +4,8 @@ Meteor.startup(function () {
 			//$('#container_lateral1').hide();
 			//$('#principal').hide();
 	Session.set('max_players', 8);
-	Session.set('tab', null);				
+	Session.set('tab', null);
+	Session.set("current_Stat", null);				
 });
 
 Meteor.subscribe("userNames");
@@ -203,13 +204,13 @@ Template.StatsPersonales.events = {
 }*/
 
 Template.viewsEstadisticas.helpers ({
-    current: function() {
-	var current = {};
-	current['StatsPersonales'] = Session.get('current') == 'StatPersonales';
-	current['MejoresGeneral'] = Session.get('current') == 'MejoresGeneral';
-	current['MejoresCarcassone'] = Session.get('current') == 'MejoresCarcassone';
-	current['MejoresOtros'] = Session.get('current') == 'MejoresOtros';
-	return tab;
+    current_Stat: function() {
+	var current_Stat = {};
+	current_Stat['StatsPersonales'] = Session.get('current_Stat') == 'StatsPersonales';
+	current_Stat['MejoresGeneral'] = Session.get('current_Stat') == 'MejoresGeneral';
+	current_Stat['MejoresCarcassone'] = Session.get('current_Stat') == 'MejoresCarcassone';
+	current_Stat['MejoresOtros'] = Session.get('current_Stat') == 'MejoresOtros';
+	return current_Stat;
 	}
 });
 

@@ -83,10 +83,10 @@
     <li><a href="#">Partida rapida</a></li>
     <li><a href="#">Estadisticas</a> 	
         <ul>
-            <li><a href="#StatsPersonales" id="StatsPersonales">Personal</a></li> 
-            <li><a href="#MejoresGeneral" id="MejoresGeneral">General</a></li> 	
-            <li><a href="#MejoresCarcassone" id="MejoresCarcassone">Carcassone</a></li> 	
-            <li><a href="#MejoresOtros" id="MejoresOtros">Otros juegos</a></li> 		
+            <li><a href="#liPersonales" id="liPersonales">Personal</a></li> 
+            <li><a href="#liGeneral" id="liGeneral">General</a></li> 	
+            <li><a href="#liCarcassone" id="liCarcassone">Carcassone</a></li> 	
+            <li><a href="#liOtros" id="liOtros">Otros juegos</a></li> 		
         </ul> 	
     </li> 	
     <li><a href="#" id ="registrolink">Registro</a></li> 	
@@ -94,25 +94,25 @@
 </template>
 
 <template name="viewsEstadisticas">
-    {{#if current.StatsPersonales}}
+    {{#if helpers.current_Stat.StatsPersonales}}
     <div id="StatsPersonales">
         {{> StatsPersonales}}
     </div>
 	{{/if}}
 
-	{{#if current.MejoresGeneral}}
+	{{#if helpers.current_Stat.MejoresGeneral}}
     <div id="MejoresGeneral">
         {{> MejoresGeneral}}
     </div>
 	{{/if}}
 
-	{{#if current.MejoresCarcasssone}}
+	{{#if helpers.current_Stat.MejoresCarcasssone}}
     <div id="MejoresCarcasonne">
        	{{> MejoresCarcasssone}}
    	</div>
 	{{/if}}
 	
-	{{#if current.MejoresOtros}}
+	{{#if helpers.current_Stat.MejoresOtros}}
     <div id="MejoresOtros">
        	{{> MejoresOtros}}
    	</div>

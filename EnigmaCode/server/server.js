@@ -1,9 +1,4 @@
     
-    
-Meteor.startup(function () {
-    // code to run on server at startup
-});
-
 Meteor.publish("userNames", function() {
     return Meteor.users.find ({}, {fields: {username:1}});
 });
@@ -16,7 +11,22 @@ Meteor.publish("gameplays", function() {
 	return Gameplays.find();
 });
 
-Meteor.publish("estadisticas", function () {
-    // Publica datos guardados de cada jugador
+//Publico estadisticas, que tiene acceso a todos los campos de cada tipo de estadistica
+Meteor.publish("all_stats", function () {
+    //Devuelo una funcion que me devuelve los campos de cada tipo de Stat
     return Stats.find();
 });
+
+/*
+//Inicializamos el StartUp
+*/
+
+Meteor.startup(function () {
+    if (Stats.find().count() == 0) {
+        Stats.insert({name: "StatsPersonales"});
+        Stats.insert({name: "MejoresPersonal"});
+        Stats.insert({name: "MejoresGeneral"});
+        Stats.insert({name: "Otros"});
+    };
+});
+

@@ -27,12 +27,12 @@
     </div>
     
     <div id="container_lateral2">
+        {{> viewsEstadisticas}}
         <div id="logintroduccion">
             <h1> Video de introduccion al juego</h1>
             <embed width="350" height="250"
                 src="https://www.youtube.com/v/KuwGehijgF8">
         </div>
-        {{> viewsEstadisticas}}
     </div>
 
 	{{#if currentUser}}
@@ -113,8 +113,8 @@
 	{{/if}}
 	
 	{{#if helpers.current_Stat.MejoresOtros}}
-    <div id="MejoresOtros">
-       	{{> MejoresOtros}}
+    <div id="Otros">
+       	{{> Otros}}
    	</div>
 	{{/if}}
 </template>
@@ -124,7 +124,7 @@
     <div id="personal">
         {{#each stats}}
             <tr>
-	            <td><strong>{{name}}</strong> ({{game_name}}): </td>
+	            <td><strong>{{name}} - </strong>({{game_name}})</td>
 	            Puntos: <td>{{points}}</td>
 	            Partidas totales jugadas:<td>{{played_games}}</td>
 	            Partidas ganadas: <td>{{winned_games}}</td>

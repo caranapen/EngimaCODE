@@ -179,17 +179,6 @@ ul li:hover > ul {
     z-index: 400;
 }
 
-#logestadisticas {    
-    text-align: center;
-    border: 2px solid red;
-    background: grey;
-    margin: 1em;
-    float: left;
-    font-size: 1.5em;
-    display: none;
-    z-index: 400;
-}
-
 #usuarios {
     border: 2px solid black;
     background: #384047;

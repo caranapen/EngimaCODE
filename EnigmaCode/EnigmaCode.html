@@ -32,9 +32,7 @@
             <embed width="350" height="250"
                 src="https://www.youtube.com/v/KuwGehijgF8">
         </div>
-        <div id="logestadisticas">
-            {{> viewsEstadisticas}}
-        </div>
+        {{> viewsEstadisticas}}
     </div>
 
 	{{#if currentUser}}
@@ -80,8 +78,9 @@
 <template name="tabs">
     <li><a href="#">Inicio</a></li>
     <li><a href="#">Juegos</a></li>
-    <li><a href="#">Donaciones</a></li>
-    <li><a href="#">Crear Partida</a></li> 	
+    <li><a href="#">Crear Partida</a></li>
+    <li><a href="#">Salas de espera</a></li> 	
+    <li><a href="#">Partida rapida</a></li>
     <li><a href="#">Estadisticas</a> 	
         <ul>
             <li><a href="#StatsPersonales" id="StatsPersonales">Personal</a></li> 

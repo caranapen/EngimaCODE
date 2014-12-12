@@ -193,35 +193,36 @@ Template.tabs.events({
 	},
 	'click #registrolink': function () {
 		changeView('usuarios');
-	}	
-});
-
-Template.viewsEstadisticas.events = {
-    'click  #liPersonales': function () {
+	},
+	'click  #liPersonales': function () {
+	    $('#logintroduccion').hide();
         var stats = Stats.findOne({name:"StatsPersonales"});
         Session.set("current_Stat", stats._id);
     },
     'click #liGeneral': function () {
+        $('#logintroduccion').hide();
         var stats = Stats.findOne({name:"MejoresGeneral"});
         Session.set("current_Stat", stats._id);
     },
     'click  #liCarcassone': function () {
+        $('#logintroduccion').hide();
         var stats = Stats.findOne({name:"MejoresCarcassone"});
         Session.set("current_Stat", stats._id);
     },
     'click #liOtros': function () {
-        var stats = Stats.findOne({name:"MejoresOtros"});
+        $('#logintroduccion').show();
+        var stats = Stats.findOne({name:"Otros"});
         Session.set("current_Stat", stats._id);
     }
-}
+});
 
 Template.viewsEstadisticas.helpers ({
     current_Stat: function() {
 	var current_Stat = {};
-	current_Stat['StatsPersonales'] = Session.get('current_Stat') == 'StatsPersonales';
-	current_Stat['MejoresGeneral'] = Session.get('current_Stat') == 'MejoresGeneral';
-	current_Stat['MejoresCarcassone'] = Session.get('current_Stat') == 'MejoresCarcassone';
-	current_Stat['MejoresOtros'] = Session.get('current_Stat') == 'MejoresOtros';
+	current_Stat['StatsPersonales'] = Session.get('current_Stat') === 'StatsPersonales';
+	current_Stat['MejoresGeneral'] = Session.get('current_Stat') === 'MejoresGeneral';
+	current_Stat['MejoresCarcassone'] = Session.get('current_Stat') === 'MejoresCarcassone';
+	current_Stat['Otros'] = Session.get('current_Stat') === 'Otros';
 	return current_Stat;
 	}
 });

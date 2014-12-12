@@ -24,8 +24,8 @@ Meteor.publish("all_stats", function () {
 Meteor.startup(function () {
     if (Stats.find().count() == 0) {
         Stats.insert({name: "StatsPersonales"});
-        Stats.insert({name: "MejoresPersonal"});
         Stats.insert({name: "MejoresGeneral"});
+        Stats.insert({name: "MejoresCarcassone"});
         Stats.insert({name: "Otros"});
     };
 });

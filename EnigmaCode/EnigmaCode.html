@@ -94,25 +94,25 @@
 </template>
 
 <template name="viewsEstadisticas">
-    {{#if helpers.current_Stat.StatsPersonales}}
+    {{#if current_Stat.StatsPersonales}}
     <div id="StatsPersonales">
         {{> StatsPersonales}}
     </div>
 	{{/if}}
 
-	{{#if helpers.current_Stat.MejoresGeneral}}
+	{{#if current_Stat.MejoresGeneral}}
     <div id="MejoresGeneral">
         {{> MejoresGeneral}}
     </div>
 	{{/if}}
 
-	{{#if helpers.current_Stat.MejoresCarcasssone}}
+	{{#if current_Stat.MejoresCarcasssone}}
     <div id="MejoresCarcasonne">
        	{{> MejoresCarcasssone}}
    	</div>
 	{{/if}}
 	
-	{{#if helpers.current_Stat.MejoresOtros}}
+	{{#if current_Stat.Otros}}
     <div id="Otros">
        	{{> Otros}}
    	</div>

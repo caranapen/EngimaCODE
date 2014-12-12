@@ -226,7 +226,7 @@ Template.viewsEstadisticas.helpers ({
 	}
 });
 
-Template.StatPersonales.helpers({
+Template.StatsPersonales.helpers({
     name: function(){
 		return "none";
 	},
@@ -253,6 +253,35 @@ Template.StatPersonales.helpers({
 	}
 });
 
+Template.StatsGenerales.helpers({
+    name: function(){
+		return "none";
+	},
+	Totalpoints: function(){
+		return "none";
+	}
+});
+
+Template.StatsCarcassone.helpers({
+    Totalplayed_games: function(){
+		return "none";
+	},
+	Totalwinned_games: function(){
+		return "none";
+	},
+    Totaldrawed_games: function(){
+		return "none";
+	},
+	Totallossed_games: function(){
+		return "none";
+	},
+    Totalpoints_per_game: function(){
+		return "none";
+	},
+	Totalpoints: function(){
+		return "none";
+	}
+});
 /*
 Template.tabs.events({
 	'click #partidaslink': function () {

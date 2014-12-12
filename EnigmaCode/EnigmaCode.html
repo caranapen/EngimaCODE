@@ -106,9 +106,9 @@
     </div>
 	{{/if}}
 
-	{{#if current_Stat.MejoresCarcasssone}}
-    <div id="MejoresCarcasonne">
-       	{{> MejoresCarcasssone}}
+	{{#if current_Stat.MejoresCarcassone}}
+    <div id="MejoresCarcassone">
+       	{{> MejoresCarcassone}}
    	</div>
 	{{/if}}
 	
@@ -120,8 +120,9 @@
 </template>
 
 <template name="StatsPersonales">
-    <h1>funciona</h1>
+    <h1>funciona1</h1>
     <div id="personal">
+        <p>Estadisticas Personales</p>
         {{#each stats}}
             <tr>
 	            <td><strong>{{name}} - </strong>({{game_name}})</td>
@@ -133,6 +134,32 @@
 	            Puntos por partida: <td>{{point_per_game}}</td>
             </tr>
         {{/each}}
+    </div>
+</template>
+
+<template name="MejoresGeneral">
+    <h1>funciona2</h1>
+    <div id="personal">
+        <p>Estadisticas Generales</p>
+        {{#each stats}}
+            <tr>
+	            <td><strong>{{name}} - </strong>Puntos totales: {{Totalpoints}}</td>
+            </tr>
+        {{/each}}
+    </div>
+</template>
+
+<template name="MejoresCarcassone">
+    <div id="personal">
+        <p>Estadisticas Carcassone</p>
+        <tr>
+	        Partidas jugadas totales:<td>{{Totalplayed_games}}</td>
+	        Partidas ganadas totales: <td>{{Totalwinned_games}}</td>
+	        Partidas empatadas totales: <td>{{Totaldrawed_games}}</td>
+	        Partidas perdidas totales: <td>{{Totallossed_games}}</td>
+	        Puntos por partida medios totales: <td>{{Totalpoint_per_game}}</td>
+	        Puntos totales obtenidos en el juego: <td>{{Totalpoints}}</td>
+        </tr>
     </div>
 </template>
 

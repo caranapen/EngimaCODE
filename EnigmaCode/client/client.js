@@ -1,13 +1,4 @@
 
-Meteor.startup(function () {
-			//$('#menu_principal').hide();
-			//$('#container_lateral1').hide();
-			//$('#principal').hide();
-	Session.set('max_players', 8);
-	Session.set('tab', null);
-	Session.set("current_Stat", "Otros");				
-});
-
 Meteor.subscribe("userNames");
 
 Meteor.subscribe("gameplays");
@@ -22,6 +13,10 @@ function changeView(view) {
 	Session.set('tab', view);
 }
 
+//En realidad esto aun no vale
+Tracker.autorun(function(){
+    var current_Stat = Session.get("current_Stat");
+});
 
 // Pruebas con Tracker.autorun
 //Tracker.autorun(function(){
@@ -29,6 +24,14 @@ function changeView(view) {
 //		$('input.joingame').attr('disabled', false);
 //});
 
+Meteor.startup(function () {
+			//$('#menu_principal').hide();
+			//$('#container_lateral1').hide();
+			//$('#principal').hide();
+	Session.set('max_players', 8);
+	Session.set('tab', null);
+	Session.set("current_Stat", "Otros");				
+});
 
 Template.userlist.helpers({
 
@@ -196,23 +199,19 @@ Template.tabs.events({
 	},
 	'click  #liPersonales': function () {
 	    $('#logintroduccion').hide();
-        var stats = Stats.findOne({name:"StatsPersonales"});
-        Session.set("current_Stat", stats._id);
+        Session.set("current_Stat", "StatsPersonales");
     },
     'click #liGeneral': function () {
         $('#logintroduccion').hide();
-        var stats = Stats.findOne({name:"MejoresGeneral"});
-        Session.set("current_Stat", stats._id);
+        Session.set("current_Stat", "MejoresGeneral");
     },
     'click  #liCarcassone': function () {
         $('#logintroduccion').hide();
-        var stats = Stats.findOne({name:"MejoresCarcassone"});
-        Session.set("current_Stat", stats._id);
+        Session.set("current_Stat", "MejoresCarcassone");
     },
     'click #liOtros': function () {
         $('#logintroduccion').show();
-        var stats = Stats.findOne({name:"Otros"});
-        Session.set("current_Stat", stats._id);
+        Session.set("current_Stat", "Otros");
     }
 });
 

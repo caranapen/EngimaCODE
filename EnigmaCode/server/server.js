@@ -20,6 +20,39 @@ Meteor.publish("all_stats", function () {
 /*
 //Inicializamos el StartUp
 */
+Gameplays.allow({  
+	update: function(userId, doc) {  
+	  return !! userId; 
+	},
+	remove: function(userId, doc) {  
+	  return !! userId; 
+	}
+});
+
+Messages.allow({
+	insert: function(userId, doc) {  
+	  return !! userId; 
+	},
+})
+
+Meteor.methods({
+
+    addGameplay: function (gameplay_name) {
+		if (Meteor.userId()){
+			return Gameplays.insert({
+					creator_name: Meteor.user().username,
+					creator_id: Meteor.userId(),
+					gameplay_name: gameplay_name,
+					gameplay_list: [],
+					num_players: 1,
+					time: Date.now(),
+				});		
+		}
+    },
+	
+	
+});
+
 
 Meteor.startup(function () {
     if (Stats.find().count() == 0) {

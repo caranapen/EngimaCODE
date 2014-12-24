@@ -36,7 +36,7 @@ Meteor.startup(function () {
 			//$('#principal').hide();
 	Session.set('max_players', 8);
 	Session.set('tab', null);
-//	Session.set("current_Stat", "Otros");				
+	Session.set("current_Stat", "Otros");				    	
 });
 
 Template.userlist.helpers({
@@ -213,6 +213,23 @@ Template.tabs.events({
     }
 });
 
+Template.viewsEstadisticas.events({
+    'click #anadeStats': function () {
+        var total = Estadisticas.find().count();
+        Estadisticas.insert({
+            player_name: "Usuario "+total,
+            //De momento Carcassone es el unico juego por defecto
+            game_name: {game_name: "Carcassone",
+                points: 20+total,
+                played_games: total,
+                winned_games: total,
+                drawed_games: total,
+                lossed_games: total
+            }
+        });
+    }
+});
+
 Template.viewsEstadisticas.helpers ({
     current_Stat: function() {
 	var current_Stat = {};
@@ -224,64 +241,44 @@ Template.viewsEstadisticas.helpers ({
 	}
 });
 
+//Solo hay que cambiar player_name : nullplayer por _id: Meteor.userId()
 Template.StatsPersonales.helpers({
     name: function(){
-		return "none";
+        var name = Estadisticas.findOne({player_name: "nullplayer"}).player_name;
+		return name;
 	},
     game_name: function(){
-		return "none";
+        var game_name = Estadisticas.findOne({player_name: "nullplayer"}).game_name.game_name;
+		return game_name;
 	},
 	points: function(){
-		return "none";
+	    var points = Estadisticas.findOne({player_name: "nullplayer"}).game_name.points;
+		return points;
 	},
     played_games: function(){
-		return "none";
+        var played_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.played_games;
+		return played_games;
 	},
 	winned_games: function(){
-		return "none";
+	    var winned_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.winned_games;
+		return winned_games;
 	},
     drawed_games: function(){
-		return "none";
+        var drawed_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.drawed_games;
+		return drawed_games;
 	},
 	lossed_games: function(){
-		return "none";
+	    var lossed_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.lossed_games;
+		return lossed_games;
 	},
     points_per_game: function(){
-		return "none";
+        var played_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.played_games;
+        var points = Estadisticas.findOne({player_name: "nullplayer"}).game_name.points;
+        var points_per_game = Math.round(points/played_games);
+		return points_per_game;
 	}
 });
-/*
-Template.StatsGenerales.helpers({
-    name: function(){
-		return "none";
-	},
-	Totalpoints: function(){
-		return "none";
-	}
-});
-*/
-/*
-Template.StatsCarcassone.helpers({
-    Totalplayed_games: function(){
-		return "none";
-	},
-	Totalwinned_games: function(){
-		return "none";
-	},
-    Totaldrawed_games: function(){
-		return "none";
-	},
-	Totallossed_games: function(){
-		return "none";
-	},
-    Totalpoints_per_game: function(){
-		return "none";
-	},
-	Totalpoints: function(){
-		return "none";
-	}
-});
-*/
+
 /*
 Template.tabs.events({
 	'click #partidaslink': function () {
@@ -294,8 +291,68 @@ Template.tabs.events({
 		$('#partidas').hide();
 		$('#waiting').hide();
 	}
+*/	
+
+Template.MejoresGeneral.helpers({
+    topScorers: function(){
+		return Estadisticas.find({}, {limit: 10, sort: {'game_name.points': -1}});
+	}
 });
-*/
+
+Template.MejoresCarcassone.helpers({
+    Totalplayed_games: function() {
+        var Totalplayed_games = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totalplayed_games += stat.game_name.played_games;
+        });
+        return Totalplayed_games;
+    },
+    Totalwinned_games: function() {
+        var Totalwinned_games = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totalwinned_games += stat.game_name.winned_games;
+        });
+        return Totalwinned_games;
+    },
+    Totaldrawed_games: function() {
+        var Totaldrawed_games = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totaldrawed_games += stat.game_name.drawed_games;
+        });
+        return Totaldrawed_games;
+    },
+    Totallossed_games: function() {
+        var Totallossed_games = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totallossed_games += stat.game_name.lossed_games;
+        });
+        return Totallossed_games;
+    },
+    Average_point_per_game: function() {
+        var averagePoints = 0;
+        var Totalpoints = 0;
+        var Totalplayed_games = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totalpoints += stat.game_name.points;
+            Totalplayed_games += stat.game_name.played_games;
+        });
+        averagePoints = Math.round(Totalpoints/Totalplayed_games);
+        return averagePoints;
+    },
+    Totalpoints: function() {
+        var Totalpoints = 0;
+        var stats = Estadisticas.find({});
+        stats.forEach(function (stat) {
+            Totalpoints += stat.game_name.points;
+        });
+        return Totalpoints;
+    }
+});
    
 /*  Configuration of signup */
 Accounts.ui.config({

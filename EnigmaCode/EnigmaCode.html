@@ -94,6 +94,10 @@
 </template>
 
 <template name="viewsEstadisticas">
+    <p>
+        <input type="button" id="anadeStats" value="Anade Stats"/>
+    </p>
+
     {{#if current_Stat.StatsPersonales}}
     <div id="StatsPersonales">
         {{> StatsPersonales}}
@@ -120,30 +124,26 @@
 </template>
 
 <template name="StatsPersonales">
-    <h1>funciona1</h1>
     <div id="personal">
         <p>Estadisticas Personales</p>
-        {{#each stats}}
-            <tr>
-	            <td><strong>{{name}} - </strong>({{game_name}})</td>
-	            Puntos: <td>{{points}}</td>
-	            Partidas totales jugadas:<td>{{played_games}}</td>
-	            Partidas ganadas: <td>{{winned_games}}</td>
-	            Partidas empatadas: <td>{{drawed_games}}</td>
-	            Partidas perdidas: <td>{{lossed_games}}</td>
-	            Puntos por partida: <td>{{point_per_game}}</td>
-            </tr>
-        {{/each}}
+        <tr>Nombre: <td>{{name}}</td></tr> 
+        <tr> Juego: <td>{{game_name}}</td></tr>
+	    <tr>Puntos: <td>{{points}}</td></tr>
+	    <tr>Partidas totales jugadas: <td>{{played_games}}</td></tr>
+	    <tr>Partidas ganadas: <td>{{winned_games}}</td></tr>
+	    <tr>Partidas empatadas: <td>{{drawed_games}}</td></tr>
+	    <tr>Partidas perdidas: <td>{{lossed_games}}</td></tr>
+	    <tr>Puntos por partida: <td>{{points_per_game}}</td></tr>
     </div>
 </template>
 
 <template name="MejoresGeneral">
-    <h1>funciona2</h1>
     <div id="personal">
-        <p>Estadisticas Generales</p>
-        {{#each stats}}
+        <h1>Estadisticas Generales</h1>
+        <p>Puntos totales:</p>
+        {{#each topScorers}}
             <tr>
-	            <td><strong>{{name}} - </strong>Puntos totales: {{Totalpoints}}</td>
+	            <strong>{{player_name}}</strong>:          {{game_name.points}}
             </tr>
         {{/each}}
     </div>
@@ -152,14 +152,12 @@
 <template name="MejoresCarcassone">
     <div id="personal">
         <p>Estadisticas Carcassone</p>
-        <tr>
-	        Partidas jugadas totales:<td>{{Totalplayed_games}}</td>
-	        Partidas ganadas totales: <td>{{Totalwinned_games}}</td>
-	        Partidas empatadas totales: <td>{{Totaldrawed_games}}</td>
-	        Partidas perdidas totales: <td>{{Totallossed_games}}</td>
-	        Puntos por partida medios totales: <td>{{Totalpoint_per_game}}</td>
-	        Puntos totales obtenidos en el juego: <td>{{Totalpoints}}</td>
-        </tr>
+        <tr>Partidas jugadas totales:<td>{{Totalplayed_games}}</td></tr>
+	    <tr>Partidas ganadas totales: <td>{{Totalwinned_games}}</td></tr>
+	    <tr>Partidas empatadas totales: <td>{{Totaldrawed_games}}</td></tr>
+	    <tr>Partidas perdidas totales: <td>{{Totallossed_games}}</td></tr>
+	    <tr>Puntos por partida medios totales: <td>{{Average_point_per_game}}</td></tr>
+	    <tr>Puntos totales obtenidos en el juego: <td>{{Totalpoints}}</td></tr>
     </div>
 </template>
 

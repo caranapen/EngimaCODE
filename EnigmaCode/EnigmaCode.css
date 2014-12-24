@@ -158,10 +158,20 @@ ul li:hover > ul {
     width: 30%;
     margin: 1em;
     float: right;
-    height: 25em;
+    height: auto;
     z-index: 300;
     display: inline;
     background: #384047;
+}
+
+#StatsPersonales, #MejoresGeneral, #MejoresCarcassone, #Otros {
+    margin: 1em;
+}
+
+#personal p {
+    font-size: 1.5em;
+    text-decoration: underline;
+    text-transform: uppercase;
 }
 
 #logintroduccion {
@@ -245,4 +255,14 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     z-index: 300;
     background: #384047;
 }
+
+#anadeStats {
+}
+
+
+
+
+
+
+
 

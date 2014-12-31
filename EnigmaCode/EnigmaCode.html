@@ -73,15 +73,21 @@
    	</div>
 	{{/if}}
 	
+	{{#if tab.salas_de_espera}}
+    <div id="salas_de_espera">
+       	{{> salas_de_espera}}
+   	</div>
+	{{/if}}
+	
 </template>
 
 <template name="tabs">
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Juegos</a></li>
-    <li><a href="#">Crear Partida</a></li>
-    <li><a href="#">Salas de espera</a></li> 	
-    <li><a href="#">Partida rapida</a></li>
-    <li><a href="#">Estadisticas</a> 	
+    <li><a href="#" id="liinicio">Inicio</a></li>
+    <li><a href="#lijuegos" id="lijuegos">Juegos</a></li>
+    <li><a href="#licrear_partida" id="licrear_partida">Crear Partida</a></li>
+    <li><a href="#lisalas_de_espera" id="lisalas_de_espera">Salas de espera</a></li> 	
+    <li><a href="#lipartida_rapida" id="lipartida_rapida">Partida rapida</a></li>
+    <li><a href="#liestadisticas" id="liestadisticas">Estadisticas</a> 	
         <ul>
             <li><a href="#liPersonales" id="liPersonales">Personal</a></li> 
             <li><a href="#liGeneral" id="liGeneral">General</a></li> 	
@@ -89,8 +95,7 @@
             <li><a href="#liOtros" id="liOtros">Otros juegos</a></li> 		
         </ul> 	
     </li> 	
-    <li><a href="#" id ="registrolink">Registro</a></li> 	
-    <li><a href="#" id ="partidaslink">Partidas (editando)</a></li> 	
+    <li><a href="#liregistro" id ="liregistro">Registro</a></li> 		
 </template>
 
 <template name="viewsEstadisticas">
@@ -202,6 +207,13 @@
      {{# each users}}  			           
   	    {{username}}<br>
      {{/each}}
+</template>
+
+<template name="salas_de_espera">
+    <h1>Listamos las salas de espera disponibles</h1>
+    {{#each sala_de_espera}}
+        {{waiting}}/{{max_players}}  <input class="joingame" type="button" value="join">
+    {{/each}}
 </template>
 
 

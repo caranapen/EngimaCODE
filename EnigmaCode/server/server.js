@@ -44,7 +44,6 @@ Estadisticas.allow({
 
 //Metodos de METEOR
 Meteor.methods({
-
     addGameplay: function (gameplay_name) {
 		if (Meteor.userId()){
 			return Gameplays.insert({

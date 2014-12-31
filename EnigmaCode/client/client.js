@@ -182,16 +182,28 @@ Template.views.helpers({
 		var tab = {};
 		tab['usuarios'] = Session.get('tab') === 'usuarios';
 		tab['partidas'] = Session.get('tab') === 'partidas';
+		tab['salas_de_espera'] = Session.get('tab') === 'salas_de_espera'
 		tab['waiting'] = Session.get('tab') === 'waiting';
 		return tab;
 	}
 });
 
 Template.tabs.events({
-	'click #partidaslink': function () {
+    'click #liinicio': function () {
+        Session.set('max_players', 8);
+	    Session.set('tab', null);
+	    Session.set("current_Stat", "Otros");
+	},
+	'click #licrear_partida': function () {
 		changeView('partidas');
 	},
-	'click #registrolink': function () {
+	'click #lisalas_de_espera': function () {
+	    changeView('salas_de_espera');
+	},	
+	'click #lipartida_rapida': function () {
+	
+	},
+	'click #liregistro': function () {
 		changeView('usuarios');
 	},
 	'click  #liPersonales': function () {
@@ -206,7 +218,6 @@ Template.tabs.events({
         $('#logintroduccion').hide();
         Session.set("current_Stat", "MejoresCarcassone");
     },
-
     'click #liOtros': function () {
         $('#logintroduccion').show();
         Session.set("current_Stat", "Otros");
@@ -352,6 +363,10 @@ Template.MejoresCarcassone.helpers({
         });
         return Totalpoints;
     }
+});
+
+Template.salas_de_Espera.helpers({
+    
 });
    
 /*  Configuration of signup */

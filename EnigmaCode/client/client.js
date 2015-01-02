@@ -63,6 +63,15 @@ Template.partidastemp.helpers({
 		} 
 }); 
 
+Template.salas_de_espera.helpers({
+		gameplays: function(){
+			return Gameplays.find({});
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		} 
+}); 
+
 Template.waitingtemp.helpers({
 	
 		waiting: function(){
@@ -201,7 +210,7 @@ Template.tabs.events({
 	    changeView('salas_de_espera');
 	},	
 	'click #lipartida_rapida': function () {
-	
+	    
 	},
 	'click #liregistro': function () {
 		changeView('usuarios');

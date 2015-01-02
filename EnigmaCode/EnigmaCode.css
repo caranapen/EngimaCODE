@@ -188,35 +188,19 @@ ul li:hover > ul {
     z-index: 400;
 }
 
-#usuarios {
+#usuarios, #partidas, #waiting, #salas_de_espera {
     border: 2px solid black;
     background: #384047;
     margin: 1em;
     float: left;
     height: 35em;
+    width: 43%;
+    z-index: 500;
+}
+
+#usuarios {
     width: 20em;
     overflow: scroll;
-    z-index: 500;
-}
-
-#partidas {
-    border: 2px solid black;
-    background: #384047;
-    margin: 1em;
-    float: left;
-    height: 35em;
-    width: 43%;
-    z-index: 500;
-}
-
-#waiting {
-    border: 2px solid black;
-    background: #384047;
-    margin: 1em;
-    float: left;
-    height: 35em;
-    width: 43%;
-    z-index: 500;
 }
 
 #principal {
@@ -254,14 +238,5 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
     z-index: 300;
     background: #384047;
 }
-
-#anadeStats {
-}
-
-
-
-
-
-
 
 

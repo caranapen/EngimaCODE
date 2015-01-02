@@ -13,11 +13,6 @@ Meteor.subscribe("messages");
 //Para tener acceso a Stats
 Meteor.subscribe("all_stats");
 
-
-function changeView(view) {
-	Session.set('tab', view);
-}
-
 //En realidad esto aun no vale
 Tracker.autorun(function(){
     var current_Stat = Session.get("current_Stat");
@@ -45,12 +40,57 @@ Meteor.startup(function () {
 	Session.set("current_Stat", "Otros");				    	
 });
 
-Template.userlist.helpers({
+/*
+Template.tabs.events({
+	'click #partidaslink': function () {
+		$('#partidas').show();
+		$('#usuarios').hide();
+		$('#waiting').hide();
+	},
+	'click #registrolink': function () {
+		$('#usuarios').show();
+		$('#partidas').hide();
+		$('#waiting').hide();
+	}
+*/	
 
+//Funciones del programa
+function changeView(view) {
+	Session.set('tab', view);
+}
+
+function estaenespera() {
+    var esta = false;
+    var partidas = Gameplays.find({});
+    partidas.forEach(function (gameplay_list) {
+        if (gameplay_list[Meteor.userId()] == true) {
+            esta = true;
+        }   
+    });
+    return esta;
+}
+
+/*
+function partida_rapida() {
+    var partida = Gameplays.find({}, {limit :1, sort: {'num_players': -1}});
+//($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
+	num_players = partida.num_players + 1 ;
+	max_players = Session.get('max_players');
+		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
+		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
+			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
+		}
+		Session.set("partida_actual", $(this)[0]._id);
+		changeView('waiting');
+	}	
+    Session.set('tab', 'waiting');
+}*/
+
+//Manejadores de eventos
+Template.userlist.helpers({
 		users: function(){
 			return Meteor.users.find({},{sort:{username:1}});
-		},
-
+		}
 });
  
 Template.chatemp.helpers({
@@ -58,27 +98,6 @@ Template.chatemp.helpers({
 			return Messages.find({},{limit: 12, sort:{time: -1}});
 		} 
 }); 
-
-
-Template.crear_partida.helpers({
-		gameplays: function(){
-			return Gameplays.find({});
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		} 
-}); 
-
-Template.waitingtemp.helpers({
-	
-		waiting: function(){
-			return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		}
-});
-
 
 Template.chatemp.events({
 	'keydown input#chatinput': function (event) {
@@ -101,7 +120,17 @@ Template.chatemp.events({
 	}	
 }); 
 
+Template.crear_partida.helpers({
+		gameplays: function(){
+			return Gameplays.find({});
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		} 
+});
+
 var gameplay_list = [];
+
 Template.crear_partida.events({
 	'keydown input#partidainput': function(event){
 
@@ -138,31 +167,16 @@ Template.crear_partida.events({
 	}
 });
 
-Template.salas_de_espera.helpers({
-		gameplays: function(){
-			return Gameplays.find({});
+Template.waiting.helpers({
+		waiting: function(){
+			return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
 		},
 		max_players: function(){
 			return Session.get('max_players');
-		} 
-}); 
-
-Template.salas_de_espera.events({
-    'click input.joingame': function(event){
-        //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
-		num_players = ($(this)[0]).num_players + 1 ;
-		max_players = Session.get('max_players');
-		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
-		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
-			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
 		}
-		Session.set("partida_actual", $(this)[0]._id);
-		changeView('waiting');
-	}	
 });
 
-Template.waitingtemp.events ({
-
+Template.waiting.events ({
 	'click input.exitgame': function(event){
 		if (confirm ("¿Seguro que quieres abandonar la partida?")){
 			var gameplay_id =  Session.get('partida_actual')
@@ -190,6 +204,29 @@ Template.waitingtemp.events ({
 	
 });
 
+Template.salas_de_espera.helpers({
+		gameplays: function(){
+			return Gameplays.find({});
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		} 
+}); 
+
+Template.salas_de_espera.events({
+    'click input.joingame': function(event){
+        //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
+		num_players = ($(this)[0]).num_players + 1 ;
+		max_players = Session.get('max_players');
+		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
+		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
+			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
+		}
+		Session.set("partida_actual", $(this)[0]._id);
+		changeView('waiting');
+	}	
+});
+
 Template.views.helpers({
 	tab: function() {
 		var tab = {};
@@ -214,7 +251,7 @@ Template.tabs.events({
 	    changeView('salas_de_espera');
 	},	
 	'click #lipartida_rapida': function () {
-	    
+	    partida_rapida();
 	},
 	'click #liregistro': function () {
 		changeView('usuarios');
@@ -303,20 +340,6 @@ Template.StatsPersonales.helpers({
 	}
 });
 
-/*
-Template.tabs.events({
-	'click #partidaslink': function () {
-		$('#partidas').show();
-		$('#usuarios').hide();
-		$('#waiting').hide();
-	},
-	'click #registrolink': function () {
-		$('#usuarios').show();
-		$('#partidas').hide();
-		$('#waiting').hide();
-	}
-*/	
-
 Template.MejoresGeneral.helpers({
     topScorers: function(){
 		return Estadisticas.find({}, {limit: 10, sort: {'game_name.points': -1}});
@@ -376,10 +399,6 @@ Template.MejoresCarcassone.helpers({
         });
         return Totalpoints;
     }
-});
-
-Template.salas_de_Espera.helpers({
-    
 });
    
 /*  Configuration of signup */

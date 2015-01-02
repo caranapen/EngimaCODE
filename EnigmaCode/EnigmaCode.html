@@ -69,7 +69,7 @@
 
 	{{#if tab.waiting}}
     <div id="waiting">
-       	{{> waitingtemp}}
+       	{{> waiting}}
    	</div>
 	{{/if}}
 	
@@ -192,7 +192,7 @@
     </form>		
 </template>
 
-<template name="waitingtemp">	
+<template name="waiting">	
     <h1> Esperando a otros jugadores </h1>
     <p>{{waiting}}/{{max_players}} </p>
     <input class="exitgame" type="button" value="Salir">

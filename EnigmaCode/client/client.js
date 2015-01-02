@@ -1,4 +1,9 @@
 
+/*Cosas pendientes en client
+-Fallos
+    Tal cual esta, uno que crea una partida puede acceder a lista de espera de todas las otras partidas. Igual para uno que no crea partida, hay que crear una condicion if que no deje
+*/
+
 Meteor.subscribe("userNames");
 
 Meteor.subscribe("gameplays");
@@ -34,6 +39,7 @@ Meteor.startup(function () {
 			//$('#menu_principal').hide();
 			//$('#container_lateral1').hide();
 			//$('#principal').hide();
+    //Esto de max_players me parece bastante guarro, una variable global seria bastante mejor
 	Session.set('max_players', 8);
 	Session.set('tab', null);
 	Session.set("current_Stat", "Otros");				    	
@@ -54,16 +60,7 @@ Template.chatemp.helpers({
 }); 
 
 
-Template.partidastemp.helpers({
-		gameplays: function(){
-			return Gameplays.find({});
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		} 
-}); 
-
-Template.salas_de_espera.helpers({
+Template.crear_partida.helpers({
 		gameplays: function(){
 			return Gameplays.find({});
 		},
@@ -105,7 +102,7 @@ Template.chatemp.events({
 }); 
 
 var gameplay_list = [];
-Template.partidastemp.events({
+Template.crear_partida.events({
 	'keydown input#partidainput': function(event){
 
 		if (event.which == 13) {
@@ -138,22 +135,29 @@ Template.partidastemp.events({
 				}			
 			}	
 		}
-	},
+	}
+});
 
-	'click input.joingame': function(event){
+Template.salas_de_espera.helpers({
+		gameplays: function(){
+			return Gameplays.find({});
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		} 
+}); 
 
-		lim = ($(this)[0]).num_players + 1 ;
-		console.log(lim);
+Template.salas_de_espera.events({
+    'click input.joingame': function(event){
+        //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
+		num_players = ($(this)[0]).num_players + 1 ;
 		max_players = Session.get('max_players');
-		if (((lim <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
+		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
+		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
 			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
 		}
-//, 
 		Session.set("partida_actual", $(this)[0]._id);
 		changeView('waiting');
-		//$('input.joingame').attr('disabled', true);
-		// alert(Gameplays.findOne({gameplay_name: event.target.id})._id);
-
 	}	
 });
 

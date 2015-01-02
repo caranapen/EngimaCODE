@@ -63,7 +63,7 @@
 
 	{{#if tab.partidas}}
     <div id="partidas">
-        {{> partidastemp}}
+        {{> crear_partida}}
     </div>
 	{{/if}}
 
@@ -184,21 +184,12 @@
      {{/each}}
 </template>
 
-<template name="partidastemp">
-	<h1>Partidas</h1>
-
+<template name="crear_partida">
+	<h1>Crear Partida</h1>
     <form class="new-task">
-		<br>Create Game:<br>
+		<br>Elige un nombre para tu partida y presiona enter<br>
         <input type="text" id = "partidainput"/>
-    </form>
-
-    {{#each gameplays}}
-	<tr>
-	    <td width= 300><strong>{{gameplay_name}}:</strong></td>
-	    <td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>
-		<td width= 300><input class="joingame" type="button" value="Join" /></td>	
-	</tr>
-    {{/each}}			
+    </form>		
 </template>
 
 <template name="waitingtemp">	
@@ -213,7 +204,8 @@
     {{#each gameplays}}
 	    <tr>
 	        <td width= 300><strong>{{gameplay_name}}:</strong></td>
-	        <td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>   <td width= 300><input class="joingame" type="button" value="Join" /></td>	
+	        <td width= 300> Creada por {{creator_name}} {{num_players}}/{{max_players}}</td>
+	        <td width= 300><input class="joingame" type="button" value="Join" /></td>	
 	    </tr>
     {{/each}}
 </template>

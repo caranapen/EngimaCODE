@@ -1,4 +1,8 @@
 
+/*Cosas pendientes en server
+
+
+*/
 
 //Controlamos como el servidor de METEOR publica sus colecciones y como los cliente se suscriben a ellas
 Meteor.publish("userNames", function() {

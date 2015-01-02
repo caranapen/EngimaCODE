@@ -1,4 +1,9 @@
 
+/*Cosas pendientes en models
+
+
+*/
+
 /* Collecciones */
 
 Messages = new Meteor.Collection('messages');

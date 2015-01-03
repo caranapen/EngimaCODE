@@ -1,9 +1,3 @@
-
-/*Cosas pendientes en client
--Fallos
-    Tal cual esta, uno que crea una partida puede acceder a lista de espera de todas las otras partidas. Igual para uno que no crea partida, hay que crear una condicion if que no deje
-*/
-
 Meteor.subscribe("userNames");
 
 Meteor.subscribe("gameplays");
@@ -59,15 +53,30 @@ function changeView(view) {
 	Session.set('tab', view);
 }
 
+//Función general. Si has creado una partida has entrado en una partida creada estás en espera
 function estaenespera() {
     var esta = false;
-    var partidas = Gameplays.find({});
-    partidas.forEach(function (gameplay_list) {
-        if (gameplay_list[Meteor.userId()] == true) {
+    var gameplays = Gameplays.find({});
+    var idusuario = Meteor.userId();
+    gameplays.forEach(function (gameplay) {
+        if (gameplay.gameplay_list.indexOf(idusuario) != -1) {
             esta = true;
         }   
     });
     return esta;
+}
+
+//Funcion especifica
+function hacreadopartida() {
+    var escreador = false;
+    var gameplays = Gameplays.find({});
+    var idusuario = Meteor.userId();
+    gameplays.forEach(function (gameplay) {
+        if (gameplay.creator_id == idusuario) {
+            escreador = true;
+        }   
+    });
+    return escreador;
 }
 
 /*
@@ -88,15 +97,15 @@ function partida_rapida() {
 
 //Manejadores de eventos
 Template.userlist.helpers({
-		users: function(){
-			return Meteor.users.find({},{sort:{username:1}});
-		}
+	users: function(){
+		return Meteor.users.find({},{sort:{username:1}});
+	}
 });
  
 Template.chatemp.helpers({
-		messages: function(){
-			return Messages.find({},{limit: 12, sort:{time: -1}});
-		} 
+	messages: function(){
+		return Messages.find({},{limit: 12, sort:{time: -1}});
+	} 
 }); 
 
 Template.chatemp.events({
@@ -121,47 +130,58 @@ Template.chatemp.events({
 }); 
 
 Template.crear_partida.helpers({
-		gameplays: function(){
-			return Gameplays.find({});
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		} 
+    gameplays: function(){
+		return Gameplays.find({});
+	},
+	max_players: function(){
+		return Session.get('max_players');
+	} 
 });
 
 var gameplay_list = [];
 
 Template.crear_partida.events({
 	'keydown input#partidainput': function(event){
-
 		if (event.which == 13) {
+		    //Solo puede intentar crear una partida si está logueado
 			if (Meteor.userId()){
-
-				var gameplay_name = $('input#partidainput');
-	//			alert(gameplay_name.val());
-				var existente = Gameplays.findOne({gameplay_name: gameplay_name.val()});
-			//	console.log(existente);
-
-				if (existente !== undefined){
-
-					alert("Ya existe una partida con ese nombre, pon un nombre distinto");
-					changeView('partidas');
+			    if (estaenespera() == false) {
+				    var gameplay_name = $('input#partidainput');
+				    var existente = Gameplays.findOne({gameplay_name: gameplay_name.val()});
+				    //Si el nombre de la partida ya esta registrado le avisamos y le devolvemos a creacion de partidas
+				    if (existente != undefined){
+					    alert("Ya existe una partida con ese nombre, pon un nombre distinto");
+					    changeView('partidas');
+				    }
+				    //Si no, procedemos a crear la partida
+				    else {
+				        //Si el nombre no es nulo, le dejamos el nombre que ha elegido
+				        //Si es nulo, le ponemos un nombre por defecto
+				        gameplay_name = gameplay_name.val()
+				        if (gameplay_name == '') {
+					        gameplay_name = "Partida de "+ Meteor.user().username + " " + Meteor.userId().slice(1,5);
+					    }
+					    //Creamos la partida
+					    Meteor.call('addGameplay', gameplay_name, function(error, gameplay_id){
+						    Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
+						    Session.set("partida_actual", gameplay_id);
+						    changeView('waiting');	
+					    });
+					}
 				}
-
-				if (gameplay_name.value != '' && (existente === undefined)) {
+				else {
+				    //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
+				    if (hacreadopartida()) {
+				        alert("Ya has creado una partida");
+				        changeView('waiting');
+				    }
+				    //Si está ya en una lista de espera le avisamos y le devolvemos a la sala de espera
+				    else {
+				        alert("Ya estás en una sala de espera");
+				        changeView('waiting');
+				    }
+				}
 					
-					Meteor.call('addGameplay', gameplay_name.val(), function(error, gameplay_id){
-						Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
-						Session.set("partida_actual", gameplay_id);
-						changeView('waiting');	
-					});
-					gameplay_name.val('');
-
-				//	
-					//$('input#partidainput').attr('disabled', true);
-					//$('input.joingame').attr('disabled', true);
-		
-				}			
 			}	
 		}
 	}

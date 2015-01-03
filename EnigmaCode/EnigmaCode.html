@@ -194,8 +194,16 @@
 
 <template name="waiting">	
     <h1> Esperando a otros jugadores </h1>
-    <p>{{waiting}}/{{max_players}} </p>
-    <input class="exitgame" type="button" value="Salir">
+    <br>La partida comenzará automáticamente cuando estén todos los jugadores. (Un total de: {{max_players}})<br>
+    <p2>Jugadores Esperando: {{waiting}}</p2>
+    {{#each players}}
+        <h2>{{username}}</h2>
+    {{/each}}
+    <p2>Jugadores Necesarios: {{max_players}}</p2>
+    {{#each emptyplayers}}
+        <h2>"{{username}}"</h2>
+    {{/each}}
+    <input class="exitgame" type="button" value="Salir de la sala de espera">
 </template>
 
 

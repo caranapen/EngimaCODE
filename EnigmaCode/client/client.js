@@ -187,12 +187,52 @@ Template.crear_partida.events({
 	}
 });
 
+Template.salas_de_espera.helpers({
+		gameplays: function(){
+			return Gameplays.find({});
+		},
+		max_players: function(){
+			return Session.get('max_players');
+		} 
+}); 
+
+Template.salas_de_espera.events({
+    'click input.joingame': function(event){
+        //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
+		num_players = ($(this)[0]).num_players + 1 ;
+		max_players = Session.get('max_players');
+		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
+		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
+			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
+		}
+		Session.set("partida_actual", $(this)[0]._id);
+		changeView('waiting');
+	}	
+});
+
 Template.waiting.helpers({
 		waiting: function(){
 			return Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
 		},
+		players: function(){
+		    var playersIds = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list;
+		    var player_names = [];
+		    for (var i=0; i < playersIds.length; i++) {
+		        player_names.push(Meteor.users.findOne({_id: playersIds[i]}));
+		    }
+		    return player_names;
+		},
 		max_players: function(){
 			return Session.get('max_players');
+		},
+		emptyplayers: function(){
+		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
+		    var max_players = Session.get('max_players');
+		    var empty_players = [];
+		    for (var i=0; i < (max_players - num_players); i++) {
+		        empty_players.push({username: "empty"});
+		    }
+		    return empty_players;
 		}
 });
 
@@ -222,29 +262,6 @@ Template.waiting.events ({
 		}
 	}
 	
-});
-
-Template.salas_de_espera.helpers({
-		gameplays: function(){
-			return Gameplays.find({});
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		} 
-}); 
-
-Template.salas_de_espera.events({
-    'click input.joingame': function(event){
-        //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
-		num_players = ($(this)[0]).num_players + 1 ;
-		max_players = Session.get('max_players');
-		//El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
-		if (((num_players <= max_players) && ($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)){
-			Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
-		}
-		Session.set("partida_actual", $(this)[0]._id);
-		changeView('waiting');
-	}	
 });
 
 Template.views.helpers({

@@ -193,7 +193,7 @@ ul li:hover > ul {
     background: #384047;
     margin: 1em;
     float: left;
-    height: 35em;
+    height: 37em;
     width: 43%;
     z-index: 500;
 }
@@ -201,6 +201,19 @@ ul li:hover > ul {
 #usuarios {
     width: 20em;
     overflow: scroll;
+}
+
+#waiting p2{
+    margin: 1em;
+    font-size: 1.5em;
+    text-decoration: underline;
+}
+
+#waiting h2{
+    font-style: italic;
+    font-weight: bold;
+    font-size: 1em;    
+    text-align: center;
 }
 
 #principal {

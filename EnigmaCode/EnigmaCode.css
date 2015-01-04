@@ -158,6 +158,7 @@ ul li:hover > ul {
     margin: 1em;
     float: right;
     height: auto;
+    min-height: 15em;
     z-index: 300;
     display: inline;
     background: #384047;
@@ -193,7 +194,8 @@ ul li:hover > ul {
     background: #384047;
     margin: 1em;
     float: left;
-    height: 37em;
+    height: auto;
+    min-height: 25em;
     width: 43%;
     z-index: 500;
 }

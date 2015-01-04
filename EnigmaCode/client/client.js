@@ -138,8 +138,6 @@ Template.crear_partida.helpers({
 	} 
 });
 
-var gameplay_list = [];
-
 Template.crear_partida.events({
 	'keydown input#partidainput': function(event){
 		if (event.which == 13) {
@@ -182,10 +180,57 @@ Template.crear_partida.events({
 				    }
 				}
 					
+			}
+			else {
+			    alert("Debes estar logueado para poder crear una partida");
 			}	
 		}
 	}
 });
+
+function partida_rapida() {
+    //Solo puede intentar crear una partida si está logueado
+	if (Meteor.userId()){
+        if (estaenespera() == false) {
+            //Comprobamos que haya partidas en la lista de espera
+            var bestgameplay = Gameplays.find({});
+            if (Gameplays.find().count() === 0) {
+                alert("No hay partidas en espera. Crea tú una nueva si quieres.");
+            }
+            else {
+		        var max_players = Session.get('max_players');
+                for (var i=0; i<bestgameplay.count(); i++) {
+                    var num_players = bestgameplay[i].num_players;
+                    //Esto habría que cambiarlo por gameplays.status
+                    if (num_players < max_players) {
+	    	            var num_players = bestgameplay.num_players + 1 ;
+			            Gameplays.update({_id : bestgameplay._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
+		                Session.set("partida_actual", bestgameplay._id);
+		                changeView('waiting');
+		                i = bestgameplay.count();
+		            }
+                    //Establecer un else que cuando no haya los requisitos pedidos avise
+                    //OTra vez tiene que ver con el gameplays.status
+		        }
+            }
+		}
+		else {
+		    //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
+		    if (hacreadopartida()) {
+		        alert("Ya has creado una partida");
+		        changeView('waiting');
+		    }
+		    //Si ya está en una lista de espera le avisamos y le devolvemos a la sala de espera
+		    else {
+		        alert("Ya estás en una sala de espera");
+		        changeView('waiting');
+		    }
+		}
+	}
+	else {
+	    alert("Debes estar logueado para poder acceder una partida");
+	}
+}
 
 Template.salas_de_espera.helpers({
 		gameplays: function(){
@@ -318,7 +363,7 @@ Template.viewsEstadisticas.events({
             player_name: "Usuario "+total,
             //De momento Carcassone es el unico juego por defecto
             game_name: {game_name: "Carcassone",
-                points: 20+total,
+                points: 20 + total,
                 played_games: total,
                 winned_games: total,
                 drawed_games: total,

@@ -1,6 +1,11 @@
-
+<head>
+  <title>Carcassonne</title>
+</head>
 
 <body>
+    <script src='client/game.js'></script>
+    <script src='client/engine.js'></script>
+
 <div id="globalbox">
     
     <div id="cabecera">
@@ -38,12 +43,8 @@
 	{{#if currentUser}}
 		{{> views}}
 	{{/if}}
-    <div id="principal">
-
-        <div id="contenido">
-		
-            {{> Carcassone}}
-        </div>
+    <div id="container_principal">
+        {{> carcassone}}
     </div>
     
     <div id="pie">
@@ -218,7 +219,7 @@
 </template>
 
 
-<template name="Carcassone">
-    <canvas id='game' width='320' height='480'></canvas> 
-</template> 
+<template name="carcassone">
+  <canvas id='game' width='1200' height='630'></canvas>
+</template>
 

@@ -218,25 +218,15 @@ ul li:hover > ul {
     text-align: center;
 }
 
-#principal {
+#container_principal {
     border: 2px solid black;
-    width: 70%;
-    height: 30em;
+    width: 1200px;
+    height: 630px;
     margin: 1em;
     float: left;
     z-index: 300;
     display: none;
     background: #384047;
-}
-
-#contenido {
-    border: 3px solid black;
-    margin: 1em;
-    height: 85%;
-    z-index: 400;
-    display: none;
-   /* <!Ojito con esta height, esta un poco parcheada, no deberia estar asi
-y se deberia haber ajustado solita..pero bueno. Igual es por el margin.!>*/
 }
 
 #pie {

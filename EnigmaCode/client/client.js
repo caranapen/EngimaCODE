@@ -272,7 +272,11 @@ Template.waiting.helpers({
 		    return player_names;
 		},
 		max_players: function(){
-			return Session.get('max_players');
+			
+			var max_p = Session.get('max_players');
+			var player_now = Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
+			
+			return (max_p - player_now);
 		},
 		emptyplayers: function(){
 		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
@@ -307,9 +311,9 @@ Template.waiting.events ({
 				changeView('partidas');
 			}
 		}
-	}
-	
+	}	
 });
+
 
 Template.views.helpers({
 	tab: function() {
@@ -368,7 +372,7 @@ Template.viewsEstadisticas.events({
         Estadisticas.insert({
 
         	// aquí habría que cambiar 'player_name: Meteor.user().username'
-            player_name: "Usuario "+total, /
+            player_name: "Usuario "+total,
             //De momento Carcassone es el unico juego por defecto
             game_name: {game_name: "Carcassone",
                 points: 20 + total,

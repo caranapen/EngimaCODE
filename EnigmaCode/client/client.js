@@ -364,8 +364,11 @@ Template.tabs.events({
 Template.viewsEstadisticas.events({
     'click #anadeStats': function () {
         var total = Estadisticas.find().count();
+        
         Estadisticas.insert({
-            player_name: "Usuario "+total,
+
+        	// aquí habría que cambiar 'player_name: Meteor.user().username'
+            player_name: "Usuario "+total, /
             //De momento Carcassone es el unico juego por defecto
             game_name: {game_name: "Carcassone",
                 points: 20 + total,

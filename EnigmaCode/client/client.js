@@ -392,7 +392,7 @@ Template.viewsEstadisticas.helpers ({
 //Solo hay que cambiar player_name : nullplayer por _id: Meteor.userId()
 Template.StatsPersonales.helpers({
     name: function(){
-        var name = Estadisticas.findOne({player_name: "nullplayer"}).player_name;
+        var name = Meteor.user().username;
 		return name;
 	},
     game_name: function(){

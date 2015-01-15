@@ -189,7 +189,7 @@ ul li:hover > ul {
     z-index: 400;
 }
 
-#usuarios, #partidas, #waiting, #salas_de_espera {
+#usuarios, #partidas, #waiting, #salas_de_espera, #amigos {
     border: 2px solid black;
     background: #384047;
     margin: 1em;

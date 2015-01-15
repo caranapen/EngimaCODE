@@ -322,6 +322,7 @@ Template.views.helpers({
 		tab['partidas'] = Session.get('tab') === 'partidas';
 		tab['salas_de_espera'] = Session.get('tab') === 'salas_de_espera'
 		tab['waiting'] = Session.get('tab') === 'waiting';
+		tab['amigos'] = Session.get('tab') === 'amigos';
 		return tab;
 	}
 });
@@ -347,6 +348,12 @@ Template.tabs.events({
 		changeView('usuarios');
 		$('#container_principal').show();
 	},
+	'click #liamigos': function () {
+	    //lo voy a utilizar como prueba
+		changeView('amigos');
+
+	},
+
 	'click  #liPersonales': function () {
 	    $('#logintroduccion').hide();
         Session.set("current_Stat", "StatsPersonales");
@@ -494,6 +501,9 @@ Template.MejoresCarcassone.helpers({
         return Totalpoints;
     }
 });
+
+
+
    
 /*  Configuration of signup */
 Accounts.ui.config({

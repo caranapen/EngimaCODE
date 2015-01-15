@@ -78,6 +78,12 @@
        	{{> salas_de_espera}}
    	</div>
 	{{/if}}
+
+	{{#if tab.amigos}}
+    <div id="amigos">
+       	{{> amigos}}
+   	</div>
+	{{/if}}
 	
 </template>
 
@@ -95,7 +101,8 @@
             <li><a href="#liOtros" id="liOtros">Otros juegos</a></li> 		
         </ul> 	
     </li> 	
-    <li><a href="#liregistro" id ="liregistro">Registro</a></li> 		
+    <li><a href="#liregistro" id ="liregistro">Registro</a></li> 
+    <li><a href="#liamigos" id ="liamigos">Amigos</a></li> 			
 </template>
 
 <template name="viewsEstadisticas">
@@ -216,6 +223,10 @@
 	        <td width= 300><input class="joingame" type="button" value="Join" /></td>	
 	    </tr>
     {{/each}}
+</template>
+
+<template name="amigos">
+     <h1>Amigos</h1>
 </template>
 
 

@@ -240,7 +240,7 @@ function partida_rapida() {
 
 Template.salas_de_espera.helpers({
 		gameplays: function(){
-			return Gameplays.find({});
+			return Gameplays.find({status: false});
 		},
 		max_players: function(){
 			return Session.get('max_players');

@@ -68,6 +68,8 @@ Meteor.methods({
 					gameplay_name: gameplay_name,
 					gameplay_list: [],
 					num_players: 1,
+					max_players: 8,
+					status: false,
 					time: Date.now(),
 				});		
 		}

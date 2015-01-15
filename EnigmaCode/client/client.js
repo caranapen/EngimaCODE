@@ -12,15 +12,20 @@ Tracker.autorun(function(){
     var current_Stat = Session.get("current_Stat");
 });
 
+var aux_inicio = false;
 // Pruebas con Tracker.autorun
 Tracker.autorun(function(){
 	current_game = Session.get('partida_actual');
 	game = Gameplays.findOne({_id: current_game});
 	console.log(game);	
-	if (game === undefined){
+
+	if (game === undefined){	
+		if (aux_inicio === true){
+			alert ("la partida ha sido borrada por marcha del creador");
+		}
 		changeView('partidas');
 	}	
-	
+	aux_inicio= true;
 	//		$('input.joingame').attr('disabled', false);
 });
 
@@ -315,7 +320,7 @@ Template.waiting.events ({
 				//Gameplays.update({_id : gameplay_id}, {$set: {gameplay_list: [], gameplay_name: undefined}});
 				changeView('partidas');
 				Gameplays.remove({_id: gameplay_id});
-				Session.set('partida_actual', undefined);	
+				Session.set('partida_actual', undefined);					
 			}
 			else{
 				gameplay_list = Gameplays.findOne({_id: gameplay_id}).gameplay_list;

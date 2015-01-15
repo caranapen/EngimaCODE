@@ -187,7 +187,8 @@
 <template name="userlist">
      <h1>Registro de Usuarios</h1>
      {{# each users}}  			           
-  	    {{username}}<br>
+  	    {{username}}     <input class="addfriend" type="button" value="Añadir amigo"> <br>
+
      {{/each}}
 </template>
 
@@ -227,6 +228,10 @@
 
 <template name="amigos">
      <h1>Amigos</h1>
+     {{# each amigo}}  			           
+  	    {{username}}<br>
+     {{/each}}
+	
 </template>
 
 

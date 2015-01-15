@@ -82,9 +82,26 @@ function hacreadopartida() {
 //Manejadores de eventos
 Template.userlist.helpers({
 	users: function(){
-		return Meteor.users.find({},{sort:{username:1}});
+
+		return Meteor.users.find( {_id: {$not: Meteor.userId()}});
 	}
 });
+
+
+Template.userlist.events({
+	'click input.addfriend': function(event){
+			Meteor.call('addFriend', ($(this)[0])._id);
+			console.log(($(this)[0]));		
+	}
+});
+
+Template.amigos.helpers({
+	amigo: function(){
+		friend_list = Meteor.user().friend_list;
+		if (friend_list !== undefined)
+			return Meteor.users.find({_id: {$in: friend_list}});
+	} 
+}); 
  
 Template.chatemp.helpers({
 	messages: function(){
@@ -346,7 +363,7 @@ Template.tabs.events({
 	'click #liregistro': function () {
 	    //lo voy a utilizar como prueba
 		changeView('usuarios');
-		$('#container_principal').show();
+		//$('#container_principal').show();
 	},
 	'click #liamigos': function () {
 	    //lo voy a utilizar como prueba

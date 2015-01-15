@@ -1,6 +1,15 @@
 //Controlamos como el servidor de METEOR publica sus colecciones y como los cliente se suscriben a ellas
-Meteor.publish("userNames", function() {
-    return Meteor.users.find ({}, {fields: {username:1}});
+
+
+Accounts.onCreateUser(function(options, user){
+    user.amigos = [];
+    return user;
+});
+
+Meteor.publish("userNames", function () {
+
+    return Meteor.users.find({}, {fields: {username:1 ,'friend_list':1}})
+
 });
 
 Meteor.publish("messages", function() {
@@ -31,7 +40,7 @@ Messages.allow({
 	insert: function(userId, doc) {  
 	  return !! userId; 
 	},
-})
+});
 
 Estadisticas.allow({
     insert: function(userId, doc) {
@@ -39,11 +48,20 @@ Estadisticas.allow({
     }
 });
 
+Meteor.users.allow({
+    update: function(userId, doc) {  
+	  return !! userId; 
+	}
+
+});
+
+
+
 
 //Metodos de METEOR
 Meteor.methods({
     addGameplay: function (gameplay_name) {
-		if (Meteor.userId()){
+		if (Meteor.userId){
 			return Gameplays.insert({
 					creator_name: Meteor.user().username,
 					creator_id: Meteor.userId(),
@@ -54,6 +72,12 @@ Meteor.methods({
 				});		
 		}
     },
+
+	addFriend: function (friend){
+		if (Meteor.userId()){
+			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})	
+		}
+	},
 	//**Esto depende de la IA
     gameEnd: function (game_name, points) {
         if (Meteor.userId) {

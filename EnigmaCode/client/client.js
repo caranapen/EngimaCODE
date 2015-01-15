@@ -82,9 +82,26 @@ function hacreadopartida() {
 //Manejadores de eventos
 Template.userlist.helpers({
 	users: function(){
-		return Meteor.users.find({},{sort:{username:1}});
+
+		return Meteor.users.find( {_id: {$not: Meteor.userId()}});
 	}
 });
+
+
+Template.userlist.events({
+	'click input.addfriend': function(event){
+			Meteor.call('addFriend', ($(this)[0])._id);
+			console.log(($(this)[0]));		
+	}
+});
+
+Template.amigos.helpers({
+	amigo: function(){
+		friend_list = Meteor.user().friend_list;
+		if (friend_list !== undefined)
+			return Meteor.users.find({_id: {$in: friend_list}});
+	} 
+}); 
  
 Template.chatemp.helpers({
 	messages: function(){
@@ -272,7 +289,11 @@ Template.waiting.helpers({
 		    return player_names;
 		},
 		max_players: function(){
-			return Session.get('max_players');
+			
+			var max_p = Session.get('max_players');
+			var player_now = Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
+			
+			return (max_p - player_now);
 		},
 		emptyplayers: function(){
 		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
@@ -307,9 +328,9 @@ Template.waiting.events ({
 				changeView('partidas');
 			}
 		}
-	}
-	
+	}	
 });
+
 
 Template.views.helpers({
 	tab: function() {
@@ -318,6 +339,7 @@ Template.views.helpers({
 		tab['partidas'] = Session.get('tab') === 'partidas';
 		tab['salas_de_espera'] = Session.get('tab') === 'salas_de_espera'
 		tab['waiting'] = Session.get('tab') === 'waiting';
+		tab['amigos'] = Session.get('tab') === 'amigos';
 		return tab;
 	}
 });
@@ -341,8 +363,14 @@ Template.tabs.events({
 	'click #liregistro': function () {
 	    //lo voy a utilizar como prueba
 		changeView('usuarios');
-		$('#container_principal').show();
+		//$('#container_principal').show();
 	},
+	'click #liamigos': function () {
+	    //lo voy a utilizar como prueba
+		changeView('amigos');
+
+	},
+
 	'click  #liPersonales': function () {
 	    $('#logintroduccion').hide();
         Session.set("current_Stat", "StatsPersonales");
@@ -364,7 +392,10 @@ Template.tabs.events({
 Template.viewsEstadisticas.events({
     'click #anadeStats': function () {
         var total = Estadisticas.find().count();
+        
         Estadisticas.insert({
+
+        	// aquí habría que cambiar 'player_name: Meteor.user().username'
             player_name: "Usuario "+total,
             //De momento Carcassone es el unico juego por defecto
             game_name: {game_name: "Carcassone",
@@ -392,7 +423,7 @@ Template.viewsEstadisticas.helpers ({
 //Solo hay que cambiar player_name : nullplayer por _id: Meteor.userId()
 Template.StatsPersonales.helpers({
     name: function(){
-        var name = Estadisticas.findOne({player_name: "nullplayer"}).player_name;
+        var name = Meteor.user().username;
 		return name;
 	},
     game_name: function(){
@@ -487,6 +518,9 @@ Template.MejoresCarcassone.helpers({
         return Totalpoints;
     }
 });
+
+
+
    
 /*  Configuration of signup */
 Accounts.ui.config({

@@ -55,9 +55,6 @@ Meteor.users.allow({
 
 });
 
-
-
-
 //Metodos de METEOR
 Meteor.methods({
     addGameplay: function (gameplay_name) {
@@ -74,7 +71,6 @@ Meteor.methods({
 				});		
 		}
     },
-
 	addFriend: function (friend){
 		if (Meteor.userId()){
 			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})	

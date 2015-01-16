@@ -92,7 +92,6 @@ Template.userlist.helpers({
 	}
 });
 
-
 Template.userlist.events({
 	'click input.addfriend': function(event){
 			Meteor.call('addFriend', ($(this)[0])._id);
@@ -263,17 +262,22 @@ Template.salas_de_espera.events({
 		        changeView('waiting');
 			}
 			else {
-			    //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
-			    if (hacreadopartida()) {
-			        alert("Ya has creado una partida");
+			    if ($(this)[0].creator_id == Meteor.userId()) {
 			        changeView('waiting');
 			    }
-			    //Si está ya en una lista de espera le avisamos y le devolvemos a la sala de espera
 			    else {
-			        alert("Ya estás en una sala de espera");
-			        changeView('waiting');
+			        //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
+			        if (hacreadopartida()) {
+			            alert("No puedes unirte. Ya has creado una partida");
+			            changeView('waiting');
+			        }
+			        //Si está ya en una lista de espera le avisamos y le devolvemos a la sala de espera
+			        else {
+			            alert("No puedes unirte. Ya estás en una sala de espera");
+			            changeView('waiting');
+			        }
 			    }
-			}
+	        }
         }
 		else {
 		    alert("Debes estar logueado para poder acceder a una partida");
@@ -294,11 +298,8 @@ Template.waiting.helpers({
 		    return player_names;
 		},
 		max_players: function(){
-			
-			var max_p = Session.get('max_players');
-			var player_now = Gameplays.findOne({_id:Session.get("partida_actual")}).num_players;
-			
-			return (max_p - player_now);
+			var max_players = Gameplays.findOne({_id:Session.get("partida_actual")}).max_players;
+			return max_players;
 		},
 		emptyplayers: function(){
 		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
@@ -366,16 +367,12 @@ Template.tabs.events({
 	    partida_rapida();
 	},
 	'click #liregistro': function () {
-	    //lo voy a utilizar como prueba
 		changeView('usuarios');
-		//$('#container_principal').show();
 	},
 	'click #liamigos': function () {
 	    //lo voy a utilizar como prueba
 		changeView('amigos');
-
 	},
-
 	'click  #liPersonales': function () {
 	    $('#logintroduccion').hide();
         Session.set("current_Stat", "StatsPersonales");
@@ -397,10 +394,8 @@ Template.tabs.events({
 Template.viewsEstadisticas.events({
     'click #anadeStats': function () {
         var total = Estadisticas.find().count();
-        
         Estadisticas.insert({
-
-        	// aquí habría que cambiar 'player_name: Meteor.user().username'
+        	//Esto es algo temporal. El nombre que tiene es par que no se repita en la base de datos
             player_name: "Usuario "+total,
             //De momento Carcassone es el unico juego por defecto
             game_name: {game_name: "Carcassone",
@@ -426,9 +421,10 @@ Template.viewsEstadisticas.helpers ({
 });
 
 //Solo hay que cambiar player_name : nullplayer por _id: Meteor.userId()
+//Me refiero a que hay que buscar por el userID, no por nullplayer..y no se puede buscar ya, porque si no esta logueado que? que nos muestra? Da un bonito error. Vuelvo a dejarlo como estaba
 Template.StatsPersonales.helpers({
     name: function(){
-        var name = Meteor.user().username;
+        var name = Estadisticas.findOne({player_name: "nullplayer"}).player_name;
 		return name;
 	},
     game_name: function(){
@@ -523,9 +519,6 @@ Template.MejoresCarcassone.helpers({
         return Totalpoints;
     }
 });
-
-
-
    
 /*  Configuration of signup */
 Accounts.ui.config({

@@ -30,28 +30,11 @@ Tracker.autorun(function(){
 });
 
 Meteor.startup(function () {
-			//$('#menu_principal').hide();
-			//$('#container_lateral1').hide();
-			//$('#principal').hide();
     //Esto de max_players me parece bastante guarro, una variable global seria bastante mejor
 	Session.set('max_players', 8);
 	Session.set('tab', null);
 	Session.set("current_Stat", "Otros");				    	
 });
-
-/*
-Template.tabs.events({
-	'click #partidaslink': function () {
-		$('#partidas').show();
-		$('#usuarios').hide();
-		$('#waiting').hide();
-	},
-	'click #registrolink': function () {
-		$('#usuarios').show();
-		$('#partidas').hide();
-		$('#waiting').hide();
-	}
-*/	
 
 //Funciones del programa
 function changeView(view) {
@@ -198,25 +181,20 @@ function partida_rapida() {
 	if (Meteor.userId()){
         if (estaenespera() == false) {
             //Comprobamos que haya partidas en la lista de espera
-            var bestgameplay = Gameplays.find({});
-            if (Gameplays.find().count() === 0) {
+            var bestgameplay = Gameplays.find({status: false}, {sort: {num_players: -1}});
+            if (bestgameplay.count() === 0) {
                 alert("No hay partidas en espera. Crea tú una nueva si quieres.");
             }
             else {
-		        var max_players = Session.get('max_players');
-                for (var i=0; i<bestgameplay.count(); i++) {
-                    var num_players = bestgameplay[i].num_players;
-                    //Esto habría que cambiarlo por gameplays.status
-                    if (num_players < max_players) {
-	    	            var num_players = bestgameplay.num_players + 1 ;
-			            Gameplays.update({_id : bestgameplay._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
-		                Session.set("partida_actual", bestgameplay._id);
+		        bestgameplay.forEach(function (game_play) {
+		            var bazinga = false;
+                    if (game_play.status == false && bazinga == false) {
+                        bazinga = true;
+			            Gameplays.update({_id : game_play._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
+		                Session.set("partida_actual", game_play._id);
 		                changeView('waiting');
-		                i = bestgameplay.count();
 		            }
-                    //Establecer un else que cuando no haya los requisitos pedidos avise
-                    //OTra vez tiene que ver con el gameplays.status
-		        }
+                });
             }
 		}
 		else {
@@ -262,7 +240,7 @@ Template.salas_de_espera.events({
 		        changeView('waiting');
 			}
 			else {
-			    if ($(this)[0].creator_id == Meteor.userId()) {
+			    if ($(this)[0].gameplay_list.indexOf(Meteor.userId()) != -1) {
 			        changeView('waiting');
 			    }
 			    else {
@@ -296,6 +274,11 @@ Template.waiting.helpers({
 		        player_names.push(Meteor.users.findOne({_id: playersIds[i]}));
 		    }
 		    return player_names;
+		},
+		restantes: function(){
+		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
+		    var max_players = Gameplays.findOne({_id:Session.get("partida_actual")}).max_players;
+		    return (max_players - num_players)
 		},
 		max_players: function(){
 			var max_players = Gameplays.findOne({_id:Session.get("partida_actual")}).max_players;

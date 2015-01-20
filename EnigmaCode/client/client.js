@@ -17,21 +17,16 @@ var aux_inicio = false;
 Tracker.autorun(function(){
 	current_game = Session.get('partida_actual');
 	game = Gameplays.findOne({_id: current_game});
-	console.log(game);	
-
 	if (game === undefined){	
 		if (aux_inicio === true){
-			alert ("la partida ha sido borrada por marcha del creador");
+			alert ("La partida ha sido borrada por marcha del creador");
 		}
 		changeView('partidas');
 	}	
 	aux_inicio= true;
-	//		$('input.joingame').attr('disabled', false);
 });
 
 Meteor.startup(function () {
-    //Esto de max_players me parece bastante guarro, una variable global seria bastante mejor
-	Session.set('max_players', 8);
 	Session.set('tab', null);
 	Session.set("current_Stat", "Otros");				    	
 });
@@ -65,6 +60,18 @@ function hacreadopartida() {
         }   
     });
     return escreador;
+}
+
+function maxcurrentgameplayers() {
+    var maxplayers = -1;
+    var gameplays = Gameplays.find({});
+    var idusuario = Meteor.userId();
+    gameplays.forEach(function (gameplay) {
+        if (gameplay.gameplay_list.indexOf(idusuario) != -1) {
+            maxplayers = gameplay.max_players;
+        }   
+    });
+    return maxplayers;
 }
 
 //Manejadores de eventos
@@ -115,64 +122,64 @@ Template.chatemp.events({
 			}
 		}  
 	}	
-}); 
-
-Template.crear_partida.helpers({
-    gameplays: function(){
-		return Gameplays.find({});
-	},
-	max_players: function(){
-		return Session.get('max_players');
-	} 
 });
 
 Template.crear_partida.events({
-	'keydown input#partidainput': function(event){
-		if (event.which == 13) {
-		    //Solo puede intentar crear una partida si está logueado
-			if (Meteor.userId()){
-			    if (estaenespera() == false) {
-				    var gameplay_name = $('input#partidainput');
-				    var existente = Gameplays.findOne({gameplay_name: gameplay_name.val()});
-				    //Si el nombre de la partida ya esta registrado le avisamos y le devolvemos a creacion de partidas
-				    if (existente != undefined){
-					    alert("Ya existe una partida con ese nombre, pon un nombre distinto");
-					    changeView('partidas');
-				    }
-				    //Si no, procedemos a crear la partida
-				    else {
-				        //Si el nombre no es nulo, le dejamos el nombre que ha elegido
-				        //Si es nulo, le ponemos un nombre por defecto
-				        gameplay_name = gameplay_name.val()
-				        if (gameplay_name == '') {
-					        gameplay_name = "Partida de "+ Meteor.user().username + " " + Meteor.userId().slice(1,5);
-					    }
-					    //Creamos la partida
-					    Meteor.call('addGameplay', gameplay_name, function(error, gameplay_id){
-						    Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
-						    Session.set("partida_actual", gameplay_id);
-						    changeView('waiting');	
-					    });
-					}
-				}
-				else {
-				    //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
-				    if (hacreadopartida()) {
-				        alert("Ya has creado una partida");
-				        changeView('waiting');
-				    }
-				    //Si está ya en una lista de espera le avisamos y le devolvemos a la sala de espera
-				    else {
-				        alert("Ya estás en una sala de espera");
-				        changeView('waiting');
-				    }
-				}
-					
-			}
-			else {
-			    alert("Debes estar logueado para poder crear una partida");
-			}	
+	'submit': function (event, tmpl){
+	    var formulariocorrecto = false;
+	    var max_players = parseInt(tmpl.find('#jugadores').value);
+        if (isNaN(max_players)) {
+	        alert("Tienes que introducir un número de jugadores para poder crear una partida. No puedes dejarlo en blanco");
+	        formulariocorrecto = false;
+	    }
+	    else {
+	        formulariocorrecto = true;
+	    }
+	    
+	    //Solo puede intentar crear una partida si está logueado
+		if (Meteor.userId()) {
+		    if (formulariocorrecto) {
+   			    if (estaenespera() == false) {
+    			    var gameplay_name = $('input#partidainput');
+    			    var existente = Gameplays.findOne({gameplay_name: gameplay_name.val()});
+    			    //Si el nombre de la partida ya esta registrado le avisamos y le devolvemos a creacion de partidas
+    			    if (existente != undefined){
+    				    alert("Ya existe una partida con ese nombre, pon un nombre distinto");
+    				    changeView('partidas');
+    			    }
+    			    //Si no, procedemos a crear la partida
+    			    else {
+    			        //Si el nombre no es nulo, le dejamos el nombre que ha elegido
+    			        //Si es nulo, le ponemos un nombre por defecto
+    			        gameplay_name = gameplay_name.val()
+    			        if (gameplay_name == '') {
+    				        gameplay_name = "Partida de "+ Meteor.user().username + " " + Meteor.userId().slice(1,5);
+    				    }
+    				    //Creamos la partida
+    				    Meteor.call('addGameplay', gameplay_name, max_players, function(error, gameplay_id){
+    					    Gameplays.update({_id : gameplay_id}, {$push: {gameplay_list: Meteor.userId()}});
+    					    Session.set("partida_actual", gameplay_id);
+    					    changeView('waiting');	
+    				    });
+    				}
+    			}
+    			else {
+    			    //Si ha creado ya una partida le avisamos y le devolvemos a su sala de espera
+    			    if (hacreadopartida()) {
+    			        alert("Ya has creado una partida");
+    			        changeView('waiting');
+    			    }
+    			    //Si está ya en una lista de espera le avisamos y le devolvemos a la sala de espera
+    			    else {
+    			        alert("Ya estás en una sala de espera");
+    			        changeView('waiting');
+    			    }
+    			}
+   			}		
 		}
+		else {
+		    alert("Debes estar logueado para poder crear una partida");
+		}	
 	}
 });
 
@@ -218,10 +225,7 @@ function partida_rapida() {
 Template.salas_de_espera.helpers({
 		gameplays: function(){
 			return Gameplays.find({status: false});
-		},
-		max_players: function(){
-			return Session.get('max_players');
-		} 
+		}
 }); 
 
 Template.salas_de_espera.events({
@@ -230,8 +234,8 @@ Template.salas_de_espera.events({
 		if (Meteor.userId()){
 		    if (estaenespera() == false) {
 			    //($(this[0]). se refiere a una coleccion, concretamente al gameplay actual, no me gusta, pendiente de cambiar
-		        num_players = ($(this)[0]).num_players + 1 ;
-		        max_players = Session.get('max_players');
+		        var num_players = ($(this)[0]).num_players + 1 ;
+		        var max_players = ($(this)[0]).max_players;
 		        //El segundo campo del if es otra guarrada, directamente cuando estas en una partida no deberías poder hacer otra cosa, en vez de comprobarsi estas en (LA partida y no en TODAS las partidas, por eso tb es bastante guarro) y de alguna forma has podido crear o acceder a otra. Quitar si o si! Lo de la lista de jugadores en la partida esta bien
 		        if ((num_players <= max_players) && (($(this)[0]).gameplay_list.indexOf(Meteor.userId()) === -1)) {
 		        	Gameplays.update({_id : $(this)[0]._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
@@ -276,7 +280,7 @@ Template.waiting.helpers({
 		    return player_names;
 		},
 		restantes: function(){
-		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
+		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).num_players;
 		    var max_players = Gameplays.findOne({_id:Session.get("partida_actual")}).max_players;
 		    return (max_players - num_players)
 		},
@@ -286,7 +290,7 @@ Template.waiting.helpers({
 		},
 		emptyplayers: function(){
 		    var num_players = Gameplays.findOne({_id: Session.get("partida_actual")}).gameplay_list.length;
-		    var max_players = Session.get('max_players');
+		    var max_players = Gameplays.findOne({_id:Session.get("partida_actual")}).max_players;
 		    var empty_players = [];
 		    for (var i=0; i < (max_players - num_players); i++) {
 		        empty_players.push({username: "empty"});
@@ -335,7 +339,6 @@ Template.views.helpers({
 
 Template.tabs.events({
     'click #liinicio': function () {
-        Session.set('max_players', 8);
 	    Session.set('tab', null);
 	    Session.set("current_Stat", "Otros");
 	    $('#container_principal').hide();

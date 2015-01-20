@@ -194,9 +194,11 @@
 <template name="crear_partida">
 	<h1>Crear Partida</h1>
     <form class="new-task">
-		<br>Elige un nombre para tu partida y presiona enter<br>
-        <input type="text" id = "partidainput"/>
-    </form>		
+		<p>Nombre de la partida</p>
+		<p><input type="text" placeholder="Introduce un nombre para tu partida" id = "partidainput"></p>
+        <p>Jugadores:</p><p><input type="number" min="1" max="8" placeholder="Introduce nº jugadores" id= "jugadores"></p>
+        <p><button class="create" type="submit" id="aceptar">Aceptar</button></p>
+    </form>
 </template>
 
 <template name="waiting">	

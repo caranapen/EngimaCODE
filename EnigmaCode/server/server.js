@@ -57,7 +57,7 @@ Meteor.users.allow({
 
 //Metodos de METEOR
 Meteor.methods({
-    addGameplay: function (gameplay_name) {
+    addGameplay: function (gameplay_name, max_players) {
 		if (Meteor.userId){
 			return Gameplays.insert({
 					creator_name: Meteor.user().username,
@@ -65,7 +65,7 @@ Meteor.methods({
 					gameplay_name: gameplay_name,
 					gameplay_list: [],
 					num_players: 1,
-					max_players: 8,
+					max_players: max_players,
 					status: false,
 					time: Date.now(),
 				});		
@@ -76,7 +76,6 @@ Meteor.methods({
 			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})	
 		}
 	},
-	//**Esto depende de la IA
     gameEnd: function (game_name, points) {
         if (Meteor.userId) {
             Estadisticas.insert ({

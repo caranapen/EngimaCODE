@@ -74,10 +74,22 @@ function maxcurrentgameplayers() {
     return maxplayers;
 }
 
+function mostrarTodo() {
+    $('#container_lateral1').show();
+    $('#container_lateral2').show();
+    $('#container_principal').hide();
+}
+
+function ocultarTodo() {
+    $('#container_lateral1').hide();
+    $('#container_lateral2').hide();
+    $('#container_principal').show();
+}
+
+
 //Manejadores de eventos
 Template.userlist.helpers({
 	users: function(){
-
 		return Meteor.users.find( {_id: {$not: Meteor.userId()}});
 	}
 });
@@ -339,9 +351,9 @@ Template.views.helpers({
 
 Template.tabs.events({
     'click #liinicio': function () {
-	    Session.set('tab', null);
+        Session.set('tab', null);
 	    Session.set("current_Stat", "Otros");
-	    $('#container_principal').hide();
+	    mostrarTodo();
 	},
 	'click #licrear_partida': function () {
 		changeView('partidas');

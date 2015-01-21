@@ -13,16 +13,24 @@ Tracker.autorun(function(){
 });
 
 var aux_inicio = false;
+var aux_creat_id = undefined;
+
 // Pruebas con Tracker.autorun
 Tracker.autorun(function(){
 	current_game = Session.get('partida_actual');
 	game = Gameplays.findOne({_id: current_game});
 	if (game === undefined){	
 		if (aux_inicio === true){
-			alert ("La partida ha sido borrada por marcha del creador");
+			if (aux_creat_id !== Meteor.userId()){
+				alert ("La partida ha sido borrada por marcha del creador");
+				changeView('partidas');
+			}	
 		}
 		changeView('partidas');
-	}	
+	}else{
+		aux_creat_id = game.creator_id;
+	}
+		
 	aux_inicio= true;
 });
 

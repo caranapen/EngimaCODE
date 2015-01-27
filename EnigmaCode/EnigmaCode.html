@@ -230,7 +230,13 @@
 
 <template name="amigos">
      <h1>Amigos</h1>
-     {{# each amigo}}  			           
+	 <h2> Conectados </h2>
+     {{# each friend_connect}}  			           
+  	    {{username}}<br>
+     {{/each}}
+
+	 <h2> Desconectados </h2>
+     {{# each friend_disconnect}}  			           
   	    {{username}}<br>
      {{/each}}
 	

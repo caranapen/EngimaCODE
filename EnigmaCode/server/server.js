@@ -8,7 +8,7 @@ Accounts.onCreateUser(function(options, user){
 
 Meteor.publish("userNames", function () {
 
-    return Meteor.users.find({}, {fields: {username:1 ,'friend_list':1}})
+    return Meteor.users.find({}, {fields: {username:1 ,'friend_list':1, services:1}})
 
 });
 

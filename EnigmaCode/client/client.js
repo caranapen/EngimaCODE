@@ -97,7 +97,7 @@ function ocultarTodo() {
 //Manejadores de eventos
 Template.userlist.helpers({
 	users: function(){
-		return Meteor.users.find( {_id: {$not: Meteor.userId()}});
+		return Meteor.users.find( {_id: {$ne: Meteor.userId()}});
 	}
 });
 
@@ -109,11 +109,16 @@ Template.userlist.events({
 });
 
 Template.amigos.helpers({
-	amigo: function(){
+	friend_connect: function(){
 		friend_list = Meteor.user().friend_list;
 		if (friend_list !== undefined)
-			return Meteor.users.find({_id: {$in: friend_list}});
-	} 
+			return Meteor.users.find({$and: [{_id: {$in: friend_list, $ne: Meteor.userId()}}, {'services.resume.loginTokens': {$ne: []}}]});
+	}, 
+	friend_disconnect: function(){
+		friend_list = Meteor.user().friend_list;
+		if (friend_list !== undefined)
+			return Meteor.users.find({$and: [{_id: {$in: friend_list}}, {'services.resume.loginTokens': []}]});
+	}	
 }); 
  
 Template.chatemp.helpers({

@@ -58,7 +58,7 @@ Meteor.users.allow({
 //Metodos de METEOR
 Meteor.methods({
     addGameplay: function (gameplay_name, max_players) {
-		if (Meteor.userId){
+		if (Meteor.userId()){
 			return Gameplays.insert({
 					creator_name: Meteor.user().username,
 					creator_id: Meteor.userId(),
@@ -73,7 +73,15 @@ Meteor.methods({
     },
 	addFriend: function (friend){
 		if (Meteor.userId()){
-			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})	
+			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})
+			Meteor.users.update({_id : friend}, {$addToSet: {friend_list: Meteor.userId()}})	
+		}
+	},
+
+	deleteFriend: function (friend){
+		if (Meteor.userId()){
+			Meteor.users.update({_id : Meteor.userId()}, {$pull: {friend_list: friend}})	
+			Meteor.users.update({_id : friend}, {$pull: {friend_list: Meteor.userId()}})	
 		}
 	},
     gameEnd: function (game_name, points) {

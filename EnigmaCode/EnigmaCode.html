@@ -232,12 +232,12 @@
      <h1>Amigos</h1>
 	 <h2> Conectados </h2>
      {{# each friend_connect}}  			           
-  	    {{username}}<br>
+  	    {{username}} <input class="deletefriend" type="button" value="Eliminar"> <br>
      {{/each}}
 
 	 <h2> Desconectados </h2>
      {{# each friend_disconnect}}  			           
-  	    {{username}}<br>
+  	    {{username}} <input class="deletefriend" type="button" value="Eliminar"> <br>
      {{/each}}
 	
 </template>

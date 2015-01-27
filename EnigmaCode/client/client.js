@@ -120,6 +120,14 @@ Template.amigos.helpers({
 			return Meteor.users.find({$and: [{_id: {$in: friend_list}}, {'services.resume.loginTokens': []}]});
 	}	
 }); 
+
+
+Template.amigos.events({
+	'click input.deletefriend': function (event) {
+		Meteor.call('deleteFriend', ($(this)[0])._id);	
+	}	
+});
+
  
 Template.chatemp.helpers({
 	messages: function(){

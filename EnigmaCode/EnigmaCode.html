@@ -39,13 +39,13 @@
         </div>
     </div>
 
-	{{#if currentUser}}
-		{{> views}}
-	{{/if}}
     <div id="container_principal">
         {{> carcassone}}
-        {{> text}}
     </div>
+    
+    {{#if currentUser}}
+        {{> views}}
+	{{/if}}
     
     <div id="pie">
         <h1>Contacta con EnigmaTeam | Email de contacto: Enigma@gmail.es | Copyright © 2014 EnigmaTeam | Política de privacidad | Términos y Condiciones</h1>
@@ -82,6 +82,12 @@
 	{{#if tab.amigos}}
     <div id="amigos">
        	{{> amigos}}
+   	</div>
+	{{/if}}
+	
+	{{#if tab.carcassone}}
+    <div id="carcassone">
+       	{{> carcassone}}
    	</div>
 	{{/if}}
 	
@@ -239,7 +245,6 @@
      {{# each friend_disconnect}}  			           
   	    {{username}} <input class="deletefriend" type="button" value="Eliminar"> <br>
      {{/each}}
-	
 </template>
 
 

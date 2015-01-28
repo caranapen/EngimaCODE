@@ -7,14 +7,30 @@ Meteor.subscribe("messages");
 //Para tener acceso a Stats
 Meteor.subscribe("all_stats");
 
+function gameReady() {
+    var gameplays = Gameplays.find({status: false});
+    gameplays.forEach(function (gameplay) {
+        if (gameplay.num_players == gameplay.max_players) {
+            begin = true;
+            //Cambiamos el status del gameplay
+            Gameplays.update({_id: gameplay._id}, {$set: {status: true}});
+            //llamamos a empezar partida
+            $('#container_lateral2').hide();
+            $('#container_principal').show();
+            Session.set('tab', null);
+            Meteor.call('gameBegin');
+        }   
+    });
+}
+
 //En realidad esto aun no vale
 Tracker.autorun(function(){
     var current_Stat = Session.get("current_Stat");
+    gameReady();
 });
 
 var aux_inicio = false;
 var aux_creat_id = undefined;
-
 // Pruebas con Tracker.autorun
 Tracker.autorun(function(){
 	current_game = Session.get('partida_actual');
@@ -167,7 +183,6 @@ Template.crear_partida.events({
 	    else {
 	        formulariocorrecto = true;
 	    }
-	    
 	    //Solo puede intentar crear una partida si está logueado
 		if (Meteor.userId()) {
 		    if (formulariocorrecto) {

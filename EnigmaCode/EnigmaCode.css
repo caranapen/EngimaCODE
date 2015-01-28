@@ -39,6 +39,17 @@ y se deberia haber ajustado solita..pero bueno. Igual es por el margin.*/
     z-index: 300;
     top: 50%;
 }
+/*#cabecera {
+    background: url(imagescarcassone/carcassonne_banner.png);
+    background-size: contain;
+    background-repeat: no-repeat;    
+    border: 3px solid black;
+    margin: 1em;
+    height: 17em;
+    width: auto;
+    z-index: 300;
+    top: 50%;
+}*/
 
 #banner {
     background: url(imagescarcassone/rsz_enigma_banner.png);

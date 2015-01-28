@@ -76,6 +76,10 @@ Meteor.methods({
 			Meteor.users.update({_id : Meteor.userId()}, {$addToSet: {friend_list: friend}})	
 		}
 	},
+	gameBegin: function () {
+        //Lo que sea
+	}
+	,
     gameEnd: function (game_name, points) {
         if (Meteor.userId) {
             Estadisticas.insert ({

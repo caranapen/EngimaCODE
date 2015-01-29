@@ -7,26 +7,48 @@ Meteor.subscribe("messages");
 //Para tener acceso a Stats
 Meteor.subscribe("all_stats");
 
+//Solo si eres el creador mandamos peticion al servidor para cambiar el estado de la partida
 function gameReady() {
     var gameplays = Gameplays.find({status: false});
     gameplays.forEach(function (gameplay) {
-        if (gameplay.num_players == gameplay.max_players) {
+        if ((gameplay.num_players == gameplay.max_players) &&
+            (gameplay.creator_id == Meteor.userId())) {
             begin = true;
             //Cambiamos el status del gameplay
             Gameplays.update({_id: gameplay._id}, {$set: {status: true}});
             //llamamos a empezar partida
-            $('#container_lateral2').hide();
-            $('#container_principal').show();
-            Session.set('tab', null);
             Meteor.call('gameBegin');
         }   
     });
 }
 
-//En realidad esto aun no vale
+//Si eres jugador, comprobamos si tu partida esta empezada y llamammos al canvas
+function partidaEmpezada() {
+    var empezada = false;
+    var gameplays = Gameplays.find({});
+    var idusuario = Meteor.userId();
+    gameplays.forEach(function (gameplay) {
+        if ((gameplay.gameplay_list.indexOf(idusuario) != -1) && (gameplay.status == true))  {
+            empezada = true;
+            $('#container_lateral2').hide();
+            $('#container_principal').show();
+            Session.set('tab', null);
+        }   
+    });
+    return empezada;
+}
+
+//Cuando no tenemos una partida empezada desbloqueamos
+var gamelock = false;
 Tracker.autorun(function(){
     var current_Stat = Session.get("current_Stat");
     gameReady();
+    if (partidaEmpezada() == true) {
+        gamelock = true;
+    }
+    else {
+        gamelock = false;
+    }
 });
 
 var aux_inicio = false;
@@ -109,7 +131,6 @@ function ocultarTodo() {
     $('#container_principal').show();
 }
 
-
 //Manejadores de eventos
 Template.userlist.helpers({
 	users: function(){
@@ -137,14 +158,12 @@ Template.amigos.helpers({
 	}	
 }); 
 
-
 Template.amigos.events({
 	'click input.deletefriend': function (event) {
 		Meteor.call('deleteFriend', ($(this)[0])._id);	
 	}	
 });
 
- 
 Template.chatemp.helpers({
 	messages: function(){
 		return Messages.find({},{limit: 12, sort:{time: -1}});
@@ -386,25 +405,34 @@ Template.views.helpers({
 
 Template.tabs.events({
     'click #liinicio': function () {
-        Session.set('tab', null);
-	    Session.set("current_Stat", "Otros");
-	    mostrarTodo();
+        if (gamelock == false) {
+            Session.set('tab', null);
+	        Session.set("current_Stat", "Otros");
+	        mostrarTodo();
+	    }
 	},
 	'click #licrear_partida': function () {
 		changeView('partidas');
 	},
 	'click #lisalas_de_espera': function () {
-	    changeView('salas_de_espera');
+	    if (gamelock == false) {
+	        changeView('salas_de_espera');
+	    }
 	},	
 	'click #lipartida_rapida': function () {
-	    partida_rapida();
+	    if (gamelock == false) {
+	        partida_rapida();
+	    }
 	},
 	'click #liregistro': function () {
-		changeView('usuarios');
+		if (gamelock == false) {
+		    changeView('usuarios');
+		}
 	},
 	'click #liamigos': function () {
-	    //lo voy a utilizar como prueba
-		changeView('amigos');
+		if (gamelock == false) {
+		    changeView('amigos');
+		}
 	},
 	'click  #liPersonales': function () {
 	    $('#logintroduccion').hide();

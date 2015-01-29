@@ -7,9 +7,7 @@ Accounts.onCreateUser(function(options, user){
 });
 
 Meteor.publish("userNames", function () {
-
     return Meteor.users.find({}, {fields: {username:1 ,'friend_list':1, services:1}})
-
 });
 
 Meteor.publish("messages", function() {
@@ -88,21 +86,47 @@ Meteor.methods({
         //Lo que sea
 	}
 	,
-    gameEnd: function (game_name, points) {
+    matchFinish: function (game_id, points, resultado) {
         if (Meteor.userId) {
-            Estadisticas.insert ({
-                player_name: Meteor.user().username,
-                //De momento Carcassone es el unico juego por defecto
-                game_name: {game_name: "Carcassone",
-                    points: points,
-                    played_games: played_games + 1,
-                    winned_games: winned_games + victory,
-                    drawed_games: drawed_games + draw,
-                    lossed_games: lossed_games + defeat
-                }
-            });
+            var creator_id = Gameplays.findOne({_id: game_id}).creator_id;
+            if (creator_id === Meteor.userId()){
+                Gameplays.remove({_id: game_id});
+            }
+            var defeat = 0;
+            var victory = 0;
+            if (resultado === 1) {
+                victory = 1;
+            }
+            else {
+                defeat = 1;
+            }
+            var stats = Estadisticas.find({player_name: Meteor.user().username});
+            var statsaux = Estadisticas.findOne({player_name: Meteor.user().username});
+            if (stats.count() === 1){
+                Estadisticas.update({player_name: Meteor.user().username}, {$set: {game_name: {
+                    points: statsaux.game_name.points + points, 
+                    played_games: statsaux.game_name.played_games + 1,
+                    winned_games: statsaux.game_name.winned_games + victory,
+                    drawed_games: statsaux.game_name.drawed_games + 0,
+                    lossed_games: statsaux.game_name.lossed_games + defeat
+                    }}}
+                );        
+            }
+            else {
+                Estadisticas.insert ({
+                    player_name: Meteor.user().username,
+                    //De momento Carcassone es el unico juego por defecto
+                    game_name: {game_name: "Carcassone",
+                        points: points,
+                        played_games: 1,
+                        winned_games: victory,
+                        drawed_games: 0,
+                        lossed_games: defeat
+                    }
+                })
+            }   
         }
-    },
+    }
 });
 
 //Inicializamos el startup

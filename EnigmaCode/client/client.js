@@ -48,6 +48,8 @@ Tracker.autorun(function(){
     }
     else {
         gamelock = false;
+        $('#container_lateral2').show();
+        $('#container_principal').hide();     
     }
 });
 
@@ -485,36 +487,36 @@ Template.viewsEstadisticas.helpers ({
 //Me refiero a que hay que buscar por el userID, no por nullplayer..y no se puede buscar ya, porque si no esta logueado que? que nos muestra? Da un bonito error. Vuelvo a dejarlo como estaba
 Template.StatsPersonales.helpers({
     name: function(){
-        var name = Estadisticas.findOne({player_name: "nullplayer"}).player_name;
+        var name = Estadisticas.findOne({player_name: Meteor.user().username}).player_name;
 		return name;
 	},
     game_name: function(){
-        var game_name = Estadisticas.findOne({player_name: "nullplayer"}).game_name.game_name;
+        var game_name = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.game_name;
 		return game_name;
 	},
 	points: function(){
-	    var points = Estadisticas.findOne({player_name: "nullplayer"}).game_name.points;
+	    var points = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.points;
 		return points;
 	},
     played_games: function(){
-        var played_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.played_games;
+        var played_games = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.played_games;
 		return played_games;
 	},
 	winned_games: function(){
-	    var winned_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.winned_games;
+	    var winned_games = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.winned_games;
 		return winned_games;
 	},
     drawed_games: function(){
-        var drawed_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.drawed_games;
+        var drawed_games = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.drawed_games;
 		return drawed_games;
 	},
 	lossed_games: function(){
-	    var lossed_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.lossed_games;
+	    var lossed_games = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.lossed_games;
 		return lossed_games;
 	},
     points_per_game: function(){
-        var played_games = Estadisticas.findOne({player_name: "nullplayer"}).game_name.played_games;
-        var points = Estadisticas.findOne({player_name: "nullplayer"}).game_name.points;
+        var played_games = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.played_games;
+        var points = Estadisticas.findOne({player_name: Meteor.user().username}).game_name.points;
         var points_per_game = Math.round(points/played_games);
 		return points_per_game;
 	}

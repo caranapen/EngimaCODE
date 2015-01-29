@@ -261,8 +261,8 @@ function partida_rapida() {
                 alert("No hay partidas en espera. Crea tú una nueva si quieres.");
             }
             else {
-		        bestgameplay.forEach(function (game_play) {
-		            var bazinga = false;
+            	var bazinga = false;
+		        bestgameplay.forEach(function (game_play) {		            
                     if (game_play.status == false && bazinga == false) {
                         bazinga = true;
 			            Gameplays.update({_id : game_play._id}, {$addToSet: {gameplay_list: Meteor.userId()}, $inc: {num_players: 1}});	
